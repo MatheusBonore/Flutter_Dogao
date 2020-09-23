@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import 'package:flutter_dogao/screens/screens.dart';
+
 import 'package:flutter_dogao/widgtes/widgtes.dart';
 
 class NavScreen extends StatefulWidget {
@@ -19,7 +20,7 @@ class _NavScreenState extends State<NavScreen> {
 
   final List<IconData> _icons = const [
     Icons.home,
-    MdiIcons.paw,
+    Icons.pets,
     MdiIcons.bell,
     Icons.menu,
   ];

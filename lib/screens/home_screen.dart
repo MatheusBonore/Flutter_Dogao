@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dogao/config/palette.dart';
-import 'package:flutter_dogao/widgtes/circle_button.dart';
+
+import 'package:flutter_dogao/data/data.dart';
+
+import 'package:flutter_dogao/models/models.dart';
+
+import 'package:flutter_dogao/widgtes/widgtes.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -14,11 +19,9 @@ class HomeScreen extends StatelessWidget {
             title: Container(
               child: Row(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10.0),
-                    child: FlutterLogo(
-                      size: 30.0,
-                    ),
+                  Image.asset(
+                    'assets/logo.png',
+                    width: 45.0,
                   ),
                   Text(
                     'Dogão',
@@ -38,10 +41,21 @@ class HomeScreen extends StatelessWidget {
               CircleButton(
                 icon: Icons.search,
                 iconSize: 30.0,
-                onPressed: () => print('Search'),
+                onPressed: () => Scaffold.of(context).showSnackBar(SnackBar(
+                  content: Text('Pesquisar'),
+                )),
               ),
             ],
-          )
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                final Post post = posts[index];
+                return PostContainer(post: post);
+              },
+              childCount: posts.length,
+            ),
+          ),
         ],
       ),
     );
