@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_dogao/config/palette.dart';
 
 import 'package:flutter_dogao/data/data.dart';
@@ -16,11 +17,16 @@ class HomeScreen extends StatelessWidget {
           SliverAppBar(
             brightness: Brightness.light,
             backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(30),
+              ),
+            ),
             title: Container(
               child: Row(
                 children: [
                   Image.asset(
-                    'assets/logo.png',
+                    'assets/images/logo.png',
                     width: 45.0,
                   ),
                   Text(

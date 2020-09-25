@@ -174,3 +174,26 @@ final List<Post> posts = [
     category: 3,
   )
 ];
+
+final List<Pet> pets = [
+  Pet(
+    id: 1,
+    name: 'Pupper Katherine',
+    imageUrl:
+        'https://www.petlove.com.br/dicas/wp-content/uploads/2018/07/pug-peitoral-1280x720.jpg',
+    description: 'French black puppy',
+    age: 2,
+    sex: 'Female',
+    color: 'Black',
+  ),
+  Pet(
+    id: 2,
+    name: 'Little Darlene',
+    imageUrl:
+        'https://static1.patasdacasa.com.br/articles/4/47/4/@/1632-enjoo-tedio-e-instinto-fisiologico-ent-articles_media_mobile-2.jpg',
+    description: 'Labrador retriever puppy',
+    age: 1,
+    sex: 'Female',
+    color: 'White',
+  ),
+];

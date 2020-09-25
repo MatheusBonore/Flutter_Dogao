@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:flutter_dogao/config/palette.dart';
 
 import 'package:flutter_dogao/models/models.dart';
@@ -16,47 +17,41 @@ class PostContainer extends StatelessWidget {
 
   final List<List> _category = const [
     [Palette.dogaoComunidade, 'Comunidade'],
-    [Palette.dogaoAchados, 'Adotar'],
-    [Palette.dogaoDoacao, 'Sou dono'],
+    [Palette.dogaoAchados, 'Sou dono'],
+    [Palette.dogaoDoacao, 'Adotar'],
     [Palette.dogaoPerdidos, 'Encontrei'],
   ];
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 5.0),
+      margin: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 8.0),
       padding: const EdgeInsets.only(top: 8.0),
-      color: Colors.white,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(25.0),
+      ),
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _PostHeader(post: post, category: _category),
-                const SizedBox(height: 4.0),
-                Text(post.caption),
-                post.imageUrl != null
-                    ? const SizedBox.shrink()
-                    : const SizedBox(height: 6.0),
-              ],
-            ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _PostHeader(post: post, category: _category),
+              const SizedBox(height: 4.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: Text(post.caption),
+              ),
+              post.imageUrl != null
+                  ? const SizedBox.shrink()
+                  : const SizedBox(height: 6.0),
+            ],
           ),
           post.imageUrl != null
               ? Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: CachedNetworkImage(
                     imageUrl: post.imageUrl,
-                    placeholder: (context, url) => Container(
-                      color: Colors.grey[200],
-                      height: 300.0,
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          backgroundColor: Colors.grey[400],
-                        ),
-                      ),
-                    ),
                   ),
                 )
               : const SizedBox.shrink(),
@@ -82,46 +77,46 @@ class _PostHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        ProfileAvatar(imageUrl: post.user.imageUrl),
-        const SizedBox(width: 8.0),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                post.user.name,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              Row(
-                children: [
-                  Text(
-                    '${post.timeAgo} • ',
-                    style: TextStyle(
-                      color: Colors.grey[600],
-                      fontSize: 12.0,
-                    ),
-                  ),
-                  Icon(
-                    Icons.location_on,
-                    color: Colors.grey[600],
-                    size: 12.0,
-                  ),
-                ],
-              ),
-            ],
+    return Container(
+      child: ListTile(
+        leading: Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+          ),
+          child: ProfileAvatar(imageUrl: post.user.imageUrl),
+        ),
+        title: Text(
+          post.user.name,
+          style: const TextStyle(
+            fontWeight: FontWeight.w600,
           ),
         ),
-        IconButton(
-          icon: const Icon(Icons.more_horiz),
+        subtitle: Row(
+          children: [
+            Text(
+              '${post.timeAgo} • ',
+              style: TextStyle(
+                color: Colors.grey[600],
+                fontSize: 12.0,
+              ),
+            ),
+            Icon(
+              Icons.location_on,
+              color: Colors.grey[600],
+              size: 12.0,
+            ),
+          ],
+        ),
+        trailing: IconButton(
+          icon: const Icon(
+            Icons.more_horiz,
+            color: Colors.black,
+          ),
           onPressed: () => Scaffold.of(context).showSnackBar(SnackBar(
             content: Text('Mais'),
           )),
         ),
-      ],
+      ),
     );
   }
 }

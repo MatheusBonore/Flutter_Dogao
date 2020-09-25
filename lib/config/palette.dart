@@ -8,8 +8,8 @@ class Palette {
 
   static const Color dogaoComunidade = Color(0xFF00A1F1);
 
-  static const Color dogaoAchados = Color(0xFFFFBB00);
-  static const Color dogaoDoacao = Color(0xFF7CBB00);
+  static const Color dogaoAchados = Color(0xFF7CBB00);
+  static const Color dogaoDoacao = Color(0xFFFFBB00);
   static const Color dogaoPerdidos = Color(0xFFF65314);
 
   static const Color online = Color(0xFF4BCB1F);

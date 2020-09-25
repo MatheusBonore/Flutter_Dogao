@@ -1,6 +1,5 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 import 'config/palette.dart';
 
@@ -67,7 +66,7 @@ class __IntroScreenState extends State<_IntroScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                      'assets/logo.png',
+                      'assets/images/logo.png',
                       width: 90.0,
                     ),
                     Text(
