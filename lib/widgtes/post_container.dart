@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:flutter_dogao/config/palette.dart';
+import 'package:flutter_dogao/data/data.dart';
 
 import 'package:flutter_dogao/models/models.dart';
 
@@ -36,7 +37,7 @@ class PostContainer extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              _PostHeader(post: post, category: _category),
+              PostHeader(post: post, category: _category),
               const SizedBox(height: 4.0),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -57,7 +58,7 @@ class PostContainer extends StatelessWidget {
               : const SizedBox.shrink(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            child: _PostStats(post: post, category: _category),
+            child: PostStats(post: post, category: _category),
           ),
         ],
       ),
@@ -65,11 +66,11 @@ class PostContainer extends StatelessWidget {
   }
 }
 
-class _PostHeader extends StatelessWidget {
+class PostHeader extends StatelessWidget {
   final Post post;
   final List<List> category;
 
-  const _PostHeader({
+  const PostHeader({
     Key key,
     @required this.post,
     @required this.category,
@@ -121,37 +122,68 @@ class _PostHeader extends StatelessWidget {
   }
 }
 
-class _PostStats extends StatelessWidget {
+class PostStats extends StatefulWidget {
   final Post post;
   final List<List> category;
 
-  const _PostStats({
+  const PostStats({
     Key key,
     @required this.post,
     @required this.category,
   }) : super(key: key);
 
   @override
+  _PostStatsState createState() => _PostStatsState();
+}
+
+class _PostStatsState extends State<PostStats> {
+  bool likes({User currentUser, Post post}) {
+    return post.likes.contains(currentUser);
+  }
+
+  void doLike({User currentUser, Post post}) {
+    setState(() {
+      if (likes(currentUser: currentUser, post: post)) {
+        post.likes.remove(currentUser);
+      } else {
+        post.likes.add(currentUser);
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final isLiked = likes(currentUser: currentUser, post: widget.post);
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             FlatButton.icon(
-              onPressed: () => Scaffold.of(context).showSnackBar(SnackBar(
-                content: Text('Curtir'),
-              )),
-              icon: const Icon(
-                Icons.favorite_border,
-                color: Colors.grey,
-              ),
-              label: Text(
-                '${post.likes}',
-                style: TextStyle(
-                  color: Colors.grey,
-                ),
-              ),
+              onPressed: () =>
+                  {doLike(currentUser: currentUser, post: widget.post)},
+              icon: isLiked
+                  ? Icon(
+                      Icons.favorite,
+                      color: Colors.red,
+                    )
+                  : Icon(
+                      Icons.favorite_border,
+                      color: Colors.grey,
+                    ),
+              label: isLiked
+                  ? Text(
+                      '${widget.post.likes.length}',
+                      style: TextStyle(
+                        color: Colors.red,
+                      ),
+                    )
+                  : Text(
+                      '${widget.post.likes.length}',
+                      style: TextStyle(
+                        color: Colors.grey,
+                      ),
+                    ),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30.0),
               ),
@@ -166,7 +198,7 @@ class _PostStats extends StatelessWidget {
                 color: Colors.grey,
               ),
               label: Text(
-                '${post.likes}',
+                '${widget.post.comments}',
                 style: TextStyle(
                   color: Colors.grey,
                 ),
@@ -179,7 +211,7 @@ class _PostStats extends StatelessWidget {
             Expanded(
               child: FlatButton.icon(
                 onPressed: () => Scaffold.of(context).showSnackBar(SnackBar(
-                  content: Text(category[post.category][1]),
+                  content: Text(widget.category[widget.post.category][1]),
                 )),
                 icon: const Icon(
                   Icons.send,
@@ -187,7 +219,7 @@ class _PostStats extends StatelessWidget {
                   size: 20.0,
                 ),
                 label: Text(
-                  category[post.category][1],
+                  widget.category[widget.post.category][1],
                   style: TextStyle(
                     color: Colors.white,
                   ),
@@ -195,7 +227,7 @@ class _PostStats extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0),
                 ),
-                color: category[post.category][0],
+                color: widget.category[widget.post.category][0],
               ),
             )
           ],
