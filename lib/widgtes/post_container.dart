@@ -2,18 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:flutter_dogao/config/palette.dart';
+
 import 'package:flutter_dogao/data/data.dart';
 
 import 'package:flutter_dogao/models/models.dart';
+
+import 'package:flutter_dogao/screens/screens.dart';
 
 import 'package:flutter_dogao/widgtes/widgtes.dart';
 
 class PostContainer extends StatelessWidget {
   final Post post;
+  final bool isView;
 
   const PostContainer({
     Key key,
     @required this.post,
+    this.isView = false,
   }) : super(key: key);
 
   final List<List> _category = const [
@@ -26,7 +31,9 @@ class PostContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 8.0),
+      margin: !isView
+          ? const EdgeInsets.symmetric(vertical: 5.0, horizontal: 8.0)
+          : const EdgeInsets.symmetric(vertical: 5.0),
       padding: const EdgeInsets.only(top: 8.0),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -37,7 +44,7 @@ class PostContainer extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              PostHeader(post: post, category: _category),
+              PostHeader(post: post, category: _category, isView: isView),
               const SizedBox(height: 4.0),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -49,17 +56,37 @@ class PostContainer extends StatelessWidget {
             ],
           ),
           post.imageUrl != null
-              ? Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: CachedNetworkImage(
-                    imageUrl: post.imageUrl,
+              ? InkWell(
+                  onDoubleTap: () => Scaffold.of(context).showSnackBar(SnackBar(
+                    content: Text('Curtir'),
+                  )),
+                  onTap: () {
+                    if (!isView) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ViewPostScreen(
+                            currentUser: currentUser,
+                            post: post,
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: CachedNetworkImage(
+                      imageUrl: post.imageUrl,
+                    ),
                   ),
                 )
               : const SizedBox.shrink(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            child: PostStats(post: post, category: _category),
-          ),
+          !isView
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  child: PostStats(post: post, category: _category),
+                )
+              : const SizedBox(height: 25.0),
         ],
       ),
     );
@@ -69,8 +96,30 @@ class PostContainer extends StatelessWidget {
 class PostHeader extends StatelessWidget {
   final Post post;
   final List<List> category;
+  final bool isView;
 
   const PostHeader({
+    Key key,
+    @required this.post,
+    @required this.category,
+    @required this.isView,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: !isView
+          ? PostHeaderTitle(post: post, category: category)
+          : PostHeaderBack(post: post, category: category),
+    );
+  }
+}
+
+class PostHeaderTitle extends StatelessWidget {
+  final Post post;
+  final List<List> category;
+
+  const PostHeaderTitle({
     Key key,
     @required this.post,
     @required this.category,
@@ -78,46 +127,79 @@ class PostHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListTile(
-        leading: Container(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-          ),
-          child: ProfileAvatar(imageUrl: post.user.imageUrl),
+    return ListTile(
+      leading: Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
         ),
-        title: Text(
-          post.user.name,
-          style: const TextStyle(
-            fontWeight: FontWeight.w600,
-          ),
+        child: ProfileAvatar(imageUrl: post.user.imageUrl),
+      ),
+      title: Text(
+        post.user.name,
+        style: const TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.w600,
         ),
-        subtitle: Row(
-          children: [
-            Text(
-              '${post.timeAgo} • ',
-              style: TextStyle(
-                color: Colors.grey[600],
-                fontSize: 12.0,
-              ),
-            ),
-            Icon(
-              Icons.location_on,
+      ),
+      subtitle: Row(
+        children: [
+          Text(
+            '${post.timeAgo} • ',
+            style: TextStyle(
               color: Colors.grey[600],
-              size: 12.0,
+              fontSize: 12.0,
+            ),
+          ),
+          Icon(
+            Icons.location_on,
+            color: Colors.grey[600],
+            size: 12.0,
+          ),
+        ],
+      ),
+      trailing: IconButton(
+        icon: const Icon(
+          Icons.more_horiz,
+          color: Colors.black,
+        ),
+        onPressed: () => Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text('Mais'),
+        )),
+      ),
+    );
+  }
+}
+
+class PostHeaderBack extends StatelessWidget {
+  final Post post;
+  final List<List> category;
+
+  const PostHeaderBack({
+    Key key,
+    @required this.post,
+    @required this.category,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+              icon: Icon(Icons.arrow_back),
+              iconSize: 30.0,
+              color: Colors.black,
+              onPressed: () => Navigator.pop(context),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.88,
+              child: PostHeaderTitle(post: post, category: category),
             ),
           ],
         ),
-        trailing: IconButton(
-          icon: const Icon(
-            Icons.more_horiz,
-            color: Colors.black,
-          ),
-          onPressed: () => Scaffold.of(context).showSnackBar(SnackBar(
-            content: Text('Mais'),
-          )),
-        ),
-      ),
+      ],
     );
   }
 }
@@ -190,15 +272,23 @@ class _PostStatsState extends State<PostStats> {
             ),
             const SizedBox(width: 8.0),
             FlatButton.icon(
-              onPressed: () => Scaffold.of(context).showSnackBar(SnackBar(
-                content: Text('Comentar'),
-              )),
+              onPressed: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ViewPostScreen(
+                      currentUser: currentUser,
+                      post: widget.post,
+                    ),
+                  ),
+                ),
+              },
               icon: const Icon(
                 Icons.chat_bubble_outline,
                 color: Colors.grey,
               ),
               label: Text(
-                '${widget.post.comments}',
+                '${widget.post.comments.length}',
                 style: TextStyle(
                   color: Colors.grey,
                 ),

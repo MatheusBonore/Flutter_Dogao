@@ -8,7 +8,7 @@ class Post {
   final String timeAgo;
   final String imageUrl;
   final List<User> likes;
-  final int comments;
+  final List<Comment> comments;
   final int shares;
   final int category;
 
@@ -19,7 +19,7 @@ class Post {
     @required this.timeAgo,
     @required this.imageUrl,
     this.likes,
-    @required this.comments,
+    this.comments,
     @required this.shares,
     @required this.category,
   });

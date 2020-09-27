@@ -127,7 +127,7 @@ final List<User> users = [
   ),
 ];
 
-final User currentUser = users[20];
+final User currentUser = users[2];
 
 final List<User> onlineUsers = [
   users[0],
@@ -142,10 +142,38 @@ final List<User> onlineUsers = [
   users[9],
 ];
 
+final List<Comment> comments = [
+  Comment(
+    id: 1,
+    user: users[0],
+    text: 'Loving this photo!!',
+  ),
+  Comment(
+    id: 2,
+    user: users[20],
+    text: 'One of the best photos of you..',
+  ),
+  Comment(
+    id: 3,
+    user: users[4],
+    text: 'Can\'t wait for you to post more!',
+  ),
+  Comment(
+    id: 4,
+    user: users[9],
+    text: 'Nice job',
+  ),
+  Comment(
+    id: 5,
+    user: users[9],
+    text: 'Thanks everyone :)',
+  ),
+];
+
 final List<Post> posts = [
   Post(
     id: 1,
-    user: currentUser,
+    user: onlineUsers[4],
     caption: 'Check out these cool puppers',
     timeAgo: '58m',
     imageUrl: 'https://images.unsplash.com/photo-1525253086316-d0c936c814f8',
@@ -157,7 +185,13 @@ final List<Post> posts = [
       users[7],
       users[9],
     ],
-    comments: 184,
+    comments: [
+      comments[0],
+      comments[1],
+      comments[2],
+      comments[3],
+      comments[4],
+    ],
     shares: 96,
     category: 1,
   ),
@@ -175,7 +209,13 @@ final List<Post> posts = [
       users[8],
       users[20],
     ],
-    comments: 79,
+    comments: [
+      comments[0],
+      comments[1],
+      comments[2],
+      comments[3],
+      comments[4],
+    ],
     shares: 18,
     category: 2,
   ),
@@ -192,7 +232,13 @@ final List<Post> posts = [
       users[4],
       users[6],
     ],
-    comments: 201,
+    comments: [
+      comments[0],
+      comments[1],
+      comments[2],
+      comments[3],
+      comments[4],
+    ],
     shares: 27,
     category: 2,
   ),
@@ -215,7 +261,13 @@ final List<Post> posts = [
       users[8],
       users[9],
     ],
-    comments: 183,
+    comments: [
+      comments[0],
+      comments[1],
+      comments[2],
+      comments[3],
+      comments[4],
+    ],
     shares: 42,
     category: 3,
   ),
@@ -233,7 +285,13 @@ final List<Post> posts = [
       users[6],
       users[7],
     ],
-    comments: 37,
+    comments: [
+      comments[0],
+      comments[1],
+      comments[2],
+      comments[3],
+      comments[4],
+    ],
     shares: 9,
     category: 1,
   ),
@@ -253,7 +311,13 @@ final List<Post> posts = [
       users[9],
     ],
     shares: 129,
-    comments: 301,
+    comments: [
+      comments[0],
+      comments[1],
+      comments[2],
+      comments[3],
+      comments[4],
+    ],
     category: 3,
   )
 ];
