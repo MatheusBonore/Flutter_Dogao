@@ -5,10 +5,12 @@ class Comment {
   final int id;
   final User user;
   final String text;
+  final List<User> likes;
 
   const Comment({
     @required this.id,
     @required this.user,
     @required this.text,
+    this.likes,
   });
 }

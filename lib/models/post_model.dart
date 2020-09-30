@@ -9,8 +9,6 @@ class Post {
   final String imageUrl;
   final List<User> likes;
   final List<Comment> comments;
-  final int shares;
-  final int category;
 
   const Post({
     @required this.id,
@@ -20,7 +18,5 @@ class Post {
     @required this.imageUrl,
     this.likes,
     this.comments,
-    @required this.shares,
-    @required this.category,
   });
 }
