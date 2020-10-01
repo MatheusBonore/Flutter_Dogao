@@ -73,10 +73,14 @@ class PostContainer extends StatelessWidget {
                       );
                     }
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: CachedNetworkImage(
-                      imageUrl: post.imageUrl,
+                  child: Container(
+                    width: double.infinity,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: CachedNetworkImage(
+                        imageUrl: post.imageUrl,
+                        fit: BoxFit.fitWidth,
+                      ),
                     ),
                   ),
                 )
