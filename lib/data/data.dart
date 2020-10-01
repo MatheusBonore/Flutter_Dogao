@@ -25,6 +25,19 @@ final List<User> users = [
 
 final User currentUser = users[0];
 
+final List<User> onlineUsers = [
+  users[0],
+  users[1],
+  users[2],
+  users[3],
+  users[4],
+  users[5],
+  users[6],
+  users[7],
+  users[8],
+  users[9],
+];
+
 final List<Comment> comments = [
   Comment(
     id: 1,
@@ -117,24 +130,24 @@ final List<Comment> comments = [
 
 final List<Post> posts = [
   Post(
-    id: 1,
-    user: onlineUsers[4],
-    caption:
-        'Bom dia a todos, esses cachorrinhos estão disponíveis para adoção.',
-    timeAgo: '58m',
-    imageUrl: 'https://images.unsplash.com/photo-1525253086316-d0c936c814f8',
-    likes: [
-      users[0],
-      users[1],
-      users[4],
-      users[5],
-      users[7],
-      users[9],
-    ],
-    comments: [comments[0], comments[1]],
-    shares: 96,
-    category: 2,
-  ),
+      id: 1,
+      user: onlineUsers[4],
+      caption:
+          'Bom dia a todos, esses cachorrinhos estão disponíveis para adoção.',
+      timeAgo: '58m',
+      imageUrl: 'https://images.unsplash.com/photo-1525253086316-d0c936c814f8',
+      likes: [
+        users[0],
+        users[1],
+        users[4],
+        users[5],
+        users[7],
+        users[9],
+      ],
+      comments: [
+        comments[0],
+        comments[1]
+      ]),
   Post(
     id: 2,
     user: onlineUsers[5],
@@ -154,8 +167,6 @@ final List<Post> posts = [
       comments[3],
       comments[4],
     ],
-    shares: 18,
-    category: 3,
   ),
   Post(
     id: 3,
@@ -178,8 +189,6 @@ final List<Post> posts = [
       comments[7],
       comments[8],
     ],
-    shares: 27,
-    category: 1,
   ),
   Post(
     id: 4,
@@ -197,8 +206,6 @@ final List<Post> posts = [
       comments[9],
       comments[10],
     ],
-    shares: 42,
-    category: 1,
   ),
   Post(
     id: 5,
@@ -218,8 +225,6 @@ final List<Post> posts = [
     comments: [
       comments[11],
     ],
-    shares: 9,
-    category: 1,
   ),
   Post(
     id: 6,
@@ -237,7 +242,6 @@ final List<Post> posts = [
       users[8],
       users[9],
     ],
-    shares: 129,
     comments: [
       comments[12],
       comments[13],
@@ -245,6 +249,5 @@ final List<Post> posts = [
       comments[15],
       comments[16],
     ],
-    comments: [],
   ),
 ];
