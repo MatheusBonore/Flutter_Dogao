@@ -3,144 +3,27 @@ import 'package:flutter_dogao/models/models.dart';
 final List<User> users = [
   User(
     id: 1,
-    name: 'David Brooks',
-    imageUrl:
-        'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
+    name: 'Fellipe Emanuel',
+    imageUrl: 'https://clube.spm.pt/files/clube/outros/foto_helder_pinto.jpg',
+    online: true,
   ),
   User(
     id: 2,
-    name: 'Jane Doe',
+    name: 'Maria Domingues',
     imageUrl:
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
+        'https://scontent.fmii1-1.fna.fbcdn.net/v/t1.0-9/60582603_2699089460105499_3826020583116636160_o.jpg?_nc_cat=104&_nc_sid=174925&_nc_eui2=AeFHFbCaBfMgsSp14D_OXpxGA437HhgheP4DjfseGCF4_gp3wPBGwqciJOCY8ejx0LsIRXrH66O2IPIPNYN8cuRE&_nc_ohc=aEFbhT3AFSEAX_uMg4Y&_nc_ht=scontent.fmii1-1.fna&oh=5a4a7a1c862f040e204a5ca7fffd3465&oe=5F99D2A3',
+    online: true,
   ),
   User(
     id: 3,
-    name: 'Matthew Hinkle',
-    imageUrl:
-        'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1331&q=80',
-  ),
-  User(
-    id: 4,
-    name: 'Amy Smith',
-    imageUrl:
-        'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80',
-  ),
-  User(
-    id: 4,
-    name: 'Ed Morris',
-    imageUrl:
-        'https://images.unsplash.com/photo-1521119989659-a83eee488004?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=664&q=80',
-  ),
-  User(
-    id: 5,
-    name: 'Carolyn Duncan',
-    imageUrl:
-        'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
-  ),
-  User(
-    id: 6,
-    name: 'Paul Pinnock',
-    imageUrl:
-        'https://images.unsplash.com/photo-1519631128182-433895475ffe?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-  ),
-  User(
-      id: 7,
-      name: 'Elizabeth Wong',
-      imageUrl:
-          'https://images.unsplash.com/photo-1515077678510-ce3bdf418862?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjF9&auto=format&fit=crop&w=675&q=80'),
-  User(
-    id: 8,
-    name: 'James Lathrop',
-    imageUrl:
-        'https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=592&q=80',
-  ),
-  User(
-    id: 9,
-    name: 'Jessie Samson',
-    imageUrl:
-        'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
-  ),
-  User(
-    id: 10,
-    name: 'David Brooks',
-    imageUrl:
-        'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
-  ),
-  User(
-    id: 11,
-    name: 'Jane Doe',
-    imageUrl:
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
-  ),
-  User(
-    id: 12,
-    name: 'Matthew Hinkle',
-    imageUrl:
-        'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1331&q=80',
-  ),
-  User(
-    id: 13,
-    name: 'Amy Smith',
-    imageUrl:
-        'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80',
-  ),
-  User(
-    id: 14,
-    name: 'Ed Morris',
-    imageUrl:
-        'https://images.unsplash.com/photo-1521119989659-a83eee488004?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=664&q=80',
-  ),
-  User(
-    id: 15,
-    name: 'Carolyn Duncan',
-    imageUrl:
-        'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
-  ),
-  User(
-    id: 16,
-    name: 'Paul Pinnock',
-    imageUrl:
-        'https://images.unsplash.com/photo-1519631128182-433895475ffe?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-  ),
-  User(
-      id: 17,
-      name: 'Elizabeth Wong',
-      imageUrl:
-          'https://images.unsplash.com/photo-1515077678510-ce3bdf418862?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjF9&auto=format&fit=crop&w=675&q=80'),
-  User(
-    id: 18,
-    name: 'James Lathrop',
-    imageUrl:
-        'https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=592&q=80',
-  ),
-  User(
-    id: 19,
-    name: 'Jessie Samson',
-    imageUrl:
-        'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
-  ),
-  User(
-    id: 20,
     name: 'Matheus Henrique Conceição Bonore',
     imageUrl:
-        'https://images.unsplash.com/photo-1578133671540-edad0b3d689e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80',
+        'https://scontent.fmii1-1.fna.fbcdn.net/v/t1.0-9/99055632_158647448972525_3629662387809812480_o.jpg?_nc_cat=111&_nc_sid=09cbfe&_nc_eui2=AeHajo3yf1fCROe4MteHrRrBIKdKp4s4waMgp0qnizjBo7MnxA-6cI4SnPQZ4XmUsiQJ1THSIAOln5GeoKSM9EN6&_nc_ohc=6Wx4ydi0rf0AX8izhdc&_nc_ht=scontent.fmii1-1.fna&oh=788d3f5ff69746403576f0ebc6571e3d&oe=5F988AAE',
+    online: false,
   ),
 ];
 
-final User currentUser = users[2];
-
-final List<User> onlineUsers = [
-  users[0],
-  users[1],
-  users[2],
-  users[3],
-  users[4],
-  users[5],
-  users[6],
-  users[7],
-  users[8],
-  users[9],
-];
+final User currentUser = users[0];
 
 final List<Comment> comments = [
   Comment(
@@ -281,7 +164,8 @@ final List<Post> posts = [
         'Boa noite pessoal, encontrei esse carinha, com coleira, perdido pela Avenida Sampaio Vidal, fiz a retirada do bichinho, dei banho e tosei, agora estou atrás do seu dono.',
     timeAgo: '8hr',
     imageUrl:
-        'https://images.unsplash.com/photo-1575535468632-345892291673?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
+        'https://cdn.pixabay.com/photo/2015/02/21/10/39/dog-644111_960_720.jpg',
+    // 'https://cdn.pixabay.com/photo/2016/11/29/09/58/adorable-1868871_960_720.jpg',
     likes: [
       users[2],
       users[3],
@@ -308,13 +192,6 @@ final List<Post> posts = [
       users[0],
       users[1],
       users[2],
-      users[3],
-      users[4],
-      users[5],
-      users[6],
-      users[7],
-      users[8],
-      users[9],
     ],
     comments: [
       comments[9],
@@ -352,6 +229,7 @@ final List<Post> posts = [
     timeAgo: '1d',
     imageUrl: 'https://cdn.los-animales.org/fotos/272478_451977-pincher.jpg',
     likes: [
+      users[0],
       users[1],
       users[2],
       users[3],
@@ -367,29 +245,6 @@ final List<Post> posts = [
       comments[15],
       comments[16],
     ],
-    category: 3,
-  )
-];
-
-final List<Pet> pets = [
-  Pet(
-    id: 1,
-    name: 'Pupper Katherine',
-    imageUrl:
-        'https://www.petlove.com.br/dicas/wp-content/uploads/2018/07/pug-peitoral-1280x720.jpg',
-    description: 'French black puppy',
-    age: 2,
-    sex: 'Female',
-    color: 'Black',
-  ),
-  Pet(
-    id: 2,
-    name: 'Little Darlene',
-    imageUrl:
-        'https://static1.patasdacasa.com.br/articles/4/47/4/@/1632-enjoo-tedio-e-instinto-fisiologico-ent-articles_media_mobile-2.jpg',
-    description: 'Labrador retriever puppy',
-    age: 1,
-    sex: 'Female',
-    color: 'White',
+    comments: [],
   ),
 ];
