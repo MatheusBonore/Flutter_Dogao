@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_dogao/config/palette.dart';
@@ -43,15 +44,115 @@ class HomeScreen extends StatelessWidget {
             ),
             centerTitle: false,
             floating: true,
-            actions: [
-              CircleButton(
-                icon: Icons.search,
-                iconSize: 30.0,
-                onPressed: () => Scaffold.of(context).showSnackBar(SnackBar(
-                  content: Text('Pesquisar'),
-                )),
+            // actions: [
+            //   CircleButton(
+            //     icon: Icons.search,
+            //     iconSize: 30.0,
+            //     onPressed: () => Scaffold.of(context).showSnackBar(SnackBar(
+            //       content: Text('Pesquisar'),
+            //     )),
+            //   ),
+            // ],
+          ),
+          SliverToBoxAdapter(
+            child: Container(
+              margin: EdgeInsets.only(
+                top: 10.0,
+                left: 8.0,
+                right: 8.0,
+                bottom: 5.0,
               ),
-            ],
+              padding: EdgeInsets.fromLTRB(15.0, 20.0, 15.0, 5.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(25.0),
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 20.0,
+                        backgroundColor: Colors.grey[200],
+                        backgroundImage:
+                            CachedNetworkImageProvider(currentUser.imageUrl),
+                      ),
+                      SizedBox(width: 8.0),
+                      Expanded(
+                        child: TextField(
+                          decoration: InputDecoration.collapsed(
+                            hintText: 'O que seu pet tem a dizer?',
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Expanded(
+                        child: FlatButton.icon(
+                          onPressed: () =>
+                              Scaffold.of(context).showSnackBar(SnackBar(
+                            content: Text('Foto/vídeo'),
+                          )),
+                          icon: Icon(
+                            Icons.image,
+                            color: Colors.lightGreen[700],
+                          ),
+                          label: Text(
+                            'Foto/vídeo',
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),
+                        ),
+                      ),
+                      // Expanded(
+                      //   child: FlatButton.icon(
+                      //     onPressed: () =>
+                      //         Scaffold.of(context).showSnackBar(SnackBar(
+                      //       content: Text('Câmera'),
+                      //     )),
+                      //     icon: Icon(
+                      //       Icons.camera_alt,
+                      //       color: Colors.blue,
+                      //     ),
+                      //     label: Text(
+                      //       'Câmera',
+                      //       overflow: TextOverflow.ellipsis,
+                      //     ),
+                      //     shape: RoundedRectangleBorder(
+                      //       borderRadius: BorderRadius.circular(30.0),
+                      //     ),
+                      //   ),
+                      // ),
+                      Expanded(
+                        child: FlatButton.icon(
+                          onPressed: () =>
+                              Scaffold.of(context).showSnackBar(SnackBar(
+                            content: Text('Check-in'),
+                          )),
+                          icon: Icon(
+                            Icons.location_on,
+                            color: Colors.red,
+                          ),
+                          label: Text(
+                            'Check-in',
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
