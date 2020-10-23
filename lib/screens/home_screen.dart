@@ -13,6 +13,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Palette.scaffold,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
