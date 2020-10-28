@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-import 'package:flutter_dogao/config/palette.dart';
-
 import 'package:flutter_dogao/data/data.dart';
 
 import 'package:flutter_dogao/models/models.dart';
@@ -21,13 +19,6 @@ class PostContainer extends StatelessWidget {
     this.isView = false,
   }) : super(key: key);
 
-  final List<List> categories = const [
-    [Palette.dogaoComunidade, 'Comunidade'],
-    [Palette.dogaoAchados, 'Sou dono'],
-    [Palette.dogaoDoacao, 'Adotar'],
-    [Palette.dogaoPerdidos, 'Encontrei'],
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,7 +35,7 @@ class PostContainer extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              PostHeader(post: post, category: categories, isView: isView),
+              PostHeader(post: post, isView: isView),
               const SizedBox(height: 4.0),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -88,7 +79,7 @@ class PostContainer extends StatelessWidget {
           !isView
               ? Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                  child: PostStats(post: post, category: categories),
+                  child: PostStats(post: post),
                 )
               : const SizedBox(height: 25.0),
         ],
@@ -99,13 +90,11 @@ class PostContainer extends StatelessWidget {
 
 class PostHeader extends StatelessWidget {
   final Post post;
-  final List<List> category;
   final bool isView;
 
   const PostHeader({
     Key key,
     @required this.post,
-    @required this.category,
     @required this.isView,
   }) : super(key: key);
 
@@ -113,25 +102,19 @@ class PostHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: !isView
-          ? PostHeaderTitle(post: post, category: category)
-          : PostHeaderBack(
-              post: post,
-              category: category,
-              isView: isView,
-            ),
+          ? PostHeaderTitle(post: post)
+          : PostHeaderBack(post: post, isView: isView),
     );
   }
 }
 
 class PostHeaderTitle extends StatelessWidget {
   final Post post;
-  final List<List> category;
   final bool isView;
 
   const PostHeaderTitle({
     Key key,
     @required this.post,
-    @required this.category,
     this.isView = false,
   }) : super(key: key);
 
@@ -186,13 +169,11 @@ class PostHeaderTitle extends StatelessWidget {
 
 class PostHeaderBack extends StatelessWidget {
   final Post post;
-  final List<List> category;
   final bool isView;
 
   const PostHeaderBack({
     Key key,
     @required this.post,
-    @required this.category,
     @required this.isView,
   }) : super(key: key);
 
@@ -212,11 +193,7 @@ class PostHeaderBack extends StatelessWidget {
             Container(
               padding: EdgeInsets.only(top: 10.0),
               width: MediaQuery.of(context).size.width * 0.86,
-              child: PostHeaderTitle(
-                post: post,
-                category: category,
-                isView: isView,
-              ),
+              child: PostHeaderTitle(post: post, isView: isView),
             ),
           ],
         ),
@@ -227,12 +204,10 @@ class PostHeaderBack extends StatelessWidget {
 
 class PostStats extends StatefulWidget {
   final Post post;
-  final List<List> category;
 
   const PostStats({
     Key key,
     @required this.post,
-    @required this.category,
   }) : super(key: key);
 
   @override
@@ -318,29 +293,6 @@ class _PostStatsState extends State<PostStats> {
                 borderRadius: BorderRadius.circular(30.0),
               ),
             ),
-            const SizedBox(width: 8.0),
-            // Expanded(
-            //   child: FlatButton.icon(
-            //     onPressed: () => Scaffold.of(context).showSnackBar(SnackBar(
-            //       content: Text(widget.category[widget.post.category][1]),
-            //     )),
-            //     icon: const Icon(
-            //       Icons.send,
-            //       color: Colors.white,
-            //       size: 20.0,
-            //     ),
-            //     label: Text(
-            //       widget.category[widget.post.category][1],
-            //       style: TextStyle(
-            //         color: Colors.white,
-            //       ),
-            //     ),
-            //     shape: RoundedRectangleBorder(
-            //       borderRadius: BorderRadius.circular(30.0),
-            //     ),
-            //     color: widget.category[widget.post.category][0],
-            //   ),
-            // ),
           ],
         ),
       ],

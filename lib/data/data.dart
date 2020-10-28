@@ -151,6 +151,129 @@ final List<User> users = [
 
 final User currentUser = users[0];
 
+final List<Post> posts = [
+  Post(
+      id: 1,
+      user: users[4],
+      caption:
+          'Bom dia a todos, esses cachorrinhos estão disponíveis para adoção.',
+      timeAgo: '58m',
+      imageUrl: 'https://images.unsplash.com/photo-1525253086316-d0c936c814f8',
+      likes: [
+        users[0],
+        users[1],
+        users[4],
+        users[5],
+        users[7],
+        users[9],
+      ],
+      comments: [
+        comments[0],
+        comments[1]
+      ]),
+  Post(
+    id: 2,
+    user: users[5],
+    caption:
+        'Boa dia pessoal, perdi meu cachorro anteontem no bairro Jardim Acapulco, é um Bull Terrier, pelo caramelo, estava com uma coleira azul e responde pelo nome de Pike, se alguém o encontrar, por favor, me avise.',
+    timeAgo: '3hr',
+    imageUrl: null,
+    likes: [
+      users[3],
+      users[5],
+      users[7],
+      users[8],
+      users[20],
+    ],
+    comments: [
+      comments[2],
+      comments[3],
+      comments[4],
+    ],
+  ),
+  Post(
+    id: 3,
+    user: users[4],
+    caption:
+        'Boa noite pessoal, encontrei esse carinha, com coleira, perdido pela Avenida Sampaio Vidal, fiz a retirada do bichinho, dei banho e tosei, agora estou atrás do seu dono.',
+    timeAgo: '8hr',
+    imageUrl:
+        'https://cdn.pixabay.com/photo/2015/02/21/10/39/dog-644111_960_720.jpg',
+    likes: [
+      users[2],
+      users[3],
+      users[4],
+      users[6],
+    ],
+    comments: [
+      comments[5],
+      comments[6],
+      comments[7],
+      comments[8],
+    ],
+  ),
+  Post(
+    id: 4,
+    user: users[3],
+    caption: 'Cachorrinho perdido na Vila Barros, alguém sabe quem é o dono?',
+    timeAgo: '15hr',
+    imageUrl:
+        'https://uploads.metropoles.com/wp-content/uploads/2020/06/30172152/WhatsApp-Image-2020-06-30-at-17.20.55.jpeg',
+    likes: [
+      users[0],
+      users[1],
+      users[2],
+    ],
+    comments: [
+      comments[9],
+      comments[10],
+    ],
+  ),
+  Post(
+    id: 5,
+    user: users[0],
+    caption:
+        'Bom dia, achei um Pastor Alemão aqui na Praça Bom Jesus, já é um pouco velhinho e está sem coleira, é de alguém?',
+    timeAgo: '1d',
+    imageUrl:
+        'https://www.clubeparacachorros.com.br/wp-content/uploads/2018/08/pastor-alemao-capa-preta.jpg',
+    likes: [
+      users[0],
+      users[1],
+      users[2],
+      users[6],
+      users[7],
+    ],
+    comments: [
+      comments[11],
+    ],
+  ),
+  Post(
+    id: 6,
+    user: users[9],
+    caption:
+        'Boa noite, perdi meu cachorrinho, é um Pincher e responde pelo nome de Teddy.',
+    timeAgo: '1d',
+    imageUrl: 'https://cdn.los-animales.org/fotos/272478_451977-pincher.jpg',
+    likes: [
+      users[0],
+      users[1],
+      users[2],
+      users[3],
+      users[4],
+      users[8],
+      users[9],
+    ],
+    comments: [
+      comments[12],
+      comments[13],
+      comments[14],
+      comments[15],
+      comments[16],
+    ],
+  ),
+];
+
 final List<Comment> comments = [
   Comment(
     id: 1,
@@ -258,133 +381,12 @@ final List<Comment> comments = [
   ),
 ];
 
-final List<Post> posts = [
-  Post(
-      id: 1,
-      user: users[4],
-      caption:
-          'Bom dia a todos, esses cachorrinhos estão disponíveis para adoção.',
-      timeAgo: '58m',
-      imageUrl: 'https://images.unsplash.com/photo-1525253086316-d0c936c814f8',
-      likes: [
-        users[0],
-        users[1],
-        users[4],
-        users[5],
-        users[7],
-        users[9],
-      ],
-      comments: [
-        comments[0],
-        comments[1]
-      ]),
-  Post(
-    id: 2,
-    user: users[5],
-    caption:
-        'Boa dia pessoal, perdi meu cachorro anteontem no bairro Jardim Acapulco, é um Bull Terrier, pelo caramelo, estava com uma coleira azul e responde pelo nome de Pike, se alguém o encontrar, por favor, me avise.',
-    timeAgo: '3hr',
-    imageUrl: null,
-    likes: [
-      users[3],
-      users[5],
-      users[7],
-      users[8],
-      users[20],
-    ],
-    comments: [
-      comments[2],
-      comments[3],
-      comments[4],
-    ],
-  ),
-  Post(
-    id: 3,
-    user: users[4],
-    caption:
-        'Boa noite pessoal, encontrei esse carinha, com coleira, perdido pela Avenida Sampaio Vidal, fiz a retirada do bichinho, dei banho e tosei, agora estou atrás do seu dono.',
-    timeAgo: '8hr',
-    imageUrl:
-        'https://cdn.pixabay.com/photo/2015/02/21/10/39/dog-644111_960_720.jpg',
-    // 'https://cdn.pixabay.com/photo/2016/11/29/09/58/adorable-1868871_960_720.jpg',
-    likes: [
-      users[2],
-      users[3],
-      users[4],
-      users[6],
-    ],
-    comments: [
-      comments[5],
-      comments[6],
-      comments[7],
-      comments[8],
-    ],
-  ),
-  Post(
-    id: 4,
-    user: users[3],
-    caption: 'Cachorrinho perdido na Vila Barros, alguém sabe quem é o dono?',
-    timeAgo: '15hr',
-    imageUrl:
-        'https://uploads.metropoles.com/wp-content/uploads/2020/06/30172152/WhatsApp-Image-2020-06-30-at-17.20.55.jpeg',
-    likes: [
-      users[0],
-      users[1],
-      users[2],
-    ],
-    comments: [
-      comments[9],
-      comments[10],
-    ],
-  ),
-  Post(
-    id: 5,
-    user: users[0],
-    caption:
-        'Bom dia, achei um Pastor Alemão aqui na Praça Bom Jesus, já é um pouco velhinho e está sem coleira, é de alguém?',
-    timeAgo: '1d',
-    imageUrl:
-        'https://www.clubeparacachorros.com.br/wp-content/uploads/2018/08/pastor-alemao-capa-preta.jpg',
-    likes: [
-      users[0],
-      users[1],
-      users[2],
-      users[6],
-      users[7],
-    ],
-    comments: [
-      comments[11],
-    ],
-  ),
-  Post(
-    id: 6,
-    user: users[9],
-    caption:
-        'Boa noite, perdi meu cachorrinho, é um Pincher e responde pelo nome de Teddy.',
-    timeAgo: '1d',
-    imageUrl: 'https://cdn.los-animales.org/fotos/272478_451977-pincher.jpg',
-    likes: [
-      users[0],
-      users[1],
-      users[2],
-      users[3],
-      users[4],
-      users[8],
-      users[9],
-    ],
-    comments: [
-      comments[12],
-      comments[13],
-      comments[14],
-      comments[15],
-      comments[16],
-    ],
-  ),
-];
-
 final List<Pet> pets = [
   Pet(
     id: 1,
+    user: users[2],
+    timeAgo: '58m',
+    category: Category.donation,
     name: 'Pupper Katherine',
     imageUrl:
         'https://www.petlove.com.br/dicas/wp-content/uploads/2018/07/pug-peitoral-1280x720.jpg',
@@ -392,5 +394,37 @@ final List<Pet> pets = [
     age: 2,
     sex: 'Female',
     color: 'Black',
+    specie: Species.dog,
+    location: 'Marília - SP',
+  ),
+  Pet(
+    id: 2,
+    user: users[2],
+    timeAgo: '58m',
+    category: Category.find,
+    name: 'Pupper Katherine',
+    imageUrl:
+        'https://www.acritica.com/uploads/news/image/735445/show_cachorro.jpg',
+    description: 'French black puppy',
+    age: 2,
+    sex: 'Female',
+    color: 'Black',
+    specie: Species.dog,
+    location: 'Marília - SP',
+  ),
+  Pet(
+    id: 3,
+    user: users[2],
+    timeAgo: '58m',
+    category: Category.lost,
+    name: 'Pupper Katherine',
+    imageUrl:
+        'https://cdn-motorshow-ssl.akamaized.net/wp-content/uploads/sites/2/2020/08/cachorro_hyunday___.jpg',
+    description: 'French black puppy',
+    age: 2,
+    sex: 'Female',
+    color: 'Black',
+    specie: Species.dog,
+    location: 'Marília - SP',
   ),
 ];
