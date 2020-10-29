@@ -181,10 +181,14 @@ class CategoryScreen extends StatelessWidget {
                   child: ListView.builder(
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
-                    itemCount: pets.length,
+                    itemCount: pets
+                        .where((p) => p.category == Category.donation)
+                        .length,
                     itemBuilder: (context, index) {
-                      final Pet pet = pets[index];
-                      return PetContainer(index: index, pet: pet);
+                      var petsAdocao =
+                          pets.where((p) => p.category == Category.donation);
+                      return PetContainer(
+                          index: index, pet: petsAdocao.toList()[index]);
                     },
                   ),
                 ),
@@ -204,10 +208,13 @@ class CategoryScreen extends StatelessWidget {
                   child: ListView.builder(
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
-                    itemCount: pets.length,
+                    itemCount:
+                        pets.where((p) => p.category == Category.find).length,
                     itemBuilder: (context, index) {
-                      final Pet pet = pets[index];
-                      return PetContainer(index: index, pet: pet);
+                      var petsAdocao =
+                          pets.where((p) => p.category == Category.find);
+                      return PetContainer(
+                          index: index, pet: petsAdocao.toList()[index]);
                     },
                   ),
                 ),
@@ -227,10 +234,13 @@ class CategoryScreen extends StatelessWidget {
                   child: ListView.builder(
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
-                    itemCount: pets.length,
+                    itemCount:
+                        pets.where((p) => p.category == Category.lost).length,
                     itemBuilder: (context, index) {
-                      final Pet pet = pets[index];
-                      return PetContainer(index: index, pet: pet);
+                      var petsPerdidos =
+                          pets.where((p) => p.category == Category.lost);
+                      return PetContainer(
+                          index: index, pet: petsPerdidos.toList()[index]);
                     },
                   ),
                 ),
@@ -274,7 +284,7 @@ class PetContainer extends StatelessWidget {
             child: Stack(
               children: [
                 Hero(
-                  tag: pet.id,
+                  tag: DateTime.now(),
                   child: Container(
                     decoration: BoxDecoration(
                       image: DecorationImage(
