@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
+import 'package:flutter_dogao/config/palette.dart';
+
 import 'package:flutter_dogao/data/data.dart';
 
 import 'package:flutter_dogao/models/models.dart';
@@ -41,12 +43,12 @@ class PostContainer extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: Text(post.caption),
               ),
-              post.imageUrl != null
+              post.pet.imageUrl != null
                   ? const SizedBox.shrink()
                   : const SizedBox(height: 6.0),
             ],
           ),
-          post.imageUrl != null
+          post.pet.imageUrl != null
               ? InkWell(
                   onDoubleTap: () => Scaffold.of(context).showSnackBar(SnackBar(
                     content: Text('Curtir'),
@@ -69,7 +71,7 @@ class PostContainer extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(top: 8.0),
                       child: CachedNetworkImage(
-                        imageUrl: post.imageUrl,
+                        imageUrl: post.pet.imageUrl,
                         fit: BoxFit.fitWidth,
                       ),
                     ),
@@ -293,6 +295,43 @@ class _PostStatsState extends State<PostStats> {
                 borderRadius: BorderRadius.circular(30.0),
               ),
             ),
+            const SizedBox(width: 8.0),
+            Expanded(
+              child: FlatButton.icon(
+                onPressed: () => Scaffold.of(context).showSnackBar(SnackBar(
+                  content: Text(
+                    widget.post.pet.category == Category.find
+                        ? "Encontrado"
+                        : widget.post.pet.category == Category.donation
+                            ? "Doação"
+                            : "Perdido",
+                  ),
+                )),
+                icon: const Icon(
+                  Icons.send,
+                  color: Colors.white,
+                  size: 20.0,
+                ),
+                label: Text(
+                  widget.post.pet.category == Category.find
+                      ? "Encontrado"
+                      : widget.post.pet.category == Category.donation
+                          ? "Doação"
+                          : "Perdido",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+                color: widget.post.pet.category == Category.find
+                    ? Colors.lightGreen[700]
+                    : widget.post.pet.category == Category.donation
+                        ? Colors.orange[700]
+                        : Palette.dogaoRed,
+              ),
+            )
           ],
         ),
       ],

@@ -188,7 +188,9 @@ class CategoryScreen extends StatelessWidget {
                       var petsAdocao =
                           pets.where((p) => p.category == Category.donation);
                       return PetContainer(
-                          index: index, pet: petsAdocao.toList()[index]);
+                        index: index,
+                        pet: petsAdocao.toList()[index],
+                      );
                     },
                   ),
                 ),
@@ -214,7 +216,9 @@ class CategoryScreen extends StatelessWidget {
                       var petsAdocao =
                           pets.where((p) => p.category == Category.find);
                       return PetContainer(
-                          index: index, pet: petsAdocao.toList()[index]);
+                        index: index,
+                        pet: petsAdocao.toList()[index],
+                      );
                     },
                   ),
                 ),
@@ -240,7 +244,9 @@ class CategoryScreen extends StatelessWidget {
                       var petsPerdidos =
                           pets.where((p) => p.category == Category.lost);
                       return PetContainer(
-                          index: index, pet: petsPerdidos.toList()[index]);
+                        index: index,
+                        pet: petsPerdidos.toList()[index],
+                      );
                     },
                   ),
                 ),
