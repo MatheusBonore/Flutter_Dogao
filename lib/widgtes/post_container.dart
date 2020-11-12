@@ -25,7 +25,7 @@ class PostContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: !isView
-          ? const EdgeInsets.symmetric(vertical: 5.0, horizontal: 8.0)
+          ? const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0)
           : const EdgeInsets.symmetric(vertical: 5.0),
       padding: const EdgeInsets.only(top: 8.0),
       decoration: BoxDecoration(
@@ -37,87 +37,35 @@ class PostContainer extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              PostHeader(post: post, isView: isView),
+              PostTop(post: post),
               const SizedBox(height: 4.0),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: Text(post.caption),
               ),
-              post.pet.imageUrl != null
-                  ? const SizedBox.shrink()
-                  : const SizedBox(height: 6.0),
             ],
           ),
-          post.pet.imageUrl != null
-              ? InkWell(
-                  onDoubleTap: () => Scaffold.of(context).showSnackBar(SnackBar(
-                    content: Text('Curtir'),
-                  )),
-                  onTap: () {
-                    if (!isView) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ViewPostScreen(
-                            currentUser: currentUser,
-                            post: post,
-                          ),
-                        ),
-                      );
-                    }
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: CachedNetworkImage(
-                        imageUrl: post.pet.imageUrl,
-                        fit: BoxFit.fitWidth,
-                      ),
-                    ),
-                  ),
-                )
-              : const SizedBox.shrink(),
-          !isView
-              ? Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                  child: PostStats(post: post),
-                )
-              : const SizedBox(height: 25.0),
+          Padding(
+            padding: const EdgeInsets.only(top: 16.0),
+            child: PostImage(post: post, isView: isView),
+          ),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+            child: PostButtons(post: post),
+          ),
         ],
       ),
     );
   }
 }
 
-class PostHeader extends StatelessWidget {
+class PostTop extends StatelessWidget {
   final Post post;
-  final bool isView;
 
-  const PostHeader({
+  const PostTop({
     Key key,
     @required this.post,
-    @required this.isView,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: !isView
-          ? PostHeaderTitle(post: post)
-          : PostHeaderBack(post: post, isView: isView),
-    );
-  }
-}
-
-class PostHeaderTitle extends StatelessWidget {
-  final Post post;
-  final bool isView;
-
-  const PostHeaderTitle({
-    Key key,
-    @required this.post,
-    this.isView = false,
   }) : super(key: key);
 
   @override
@@ -138,7 +86,7 @@ class PostHeaderTitle extends StatelessWidget {
           color: Colors.black,
           fontWeight: FontWeight.w600,
         ),
-        overflow: isView ? TextOverflow.ellipsis : TextOverflow.clip,
+        overflow: TextOverflow.ellipsis,
       ),
       subtitle: Row(
         children: [
@@ -154,6 +102,13 @@ class PostHeaderTitle extends StatelessWidget {
             color: Colors.grey[600],
             size: 12.0,
           ),
+          Text(
+            '${post.pet.location}',
+            style: TextStyle(
+              color: Colors.grey[600],
+              fontSize: 12.0,
+            ),
+          ),
         ],
       ),
       trailing: IconButton(
@@ -162,18 +117,18 @@ class PostHeaderTitle extends StatelessWidget {
           color: Colors.black,
         ),
         onPressed: () => Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text('Mais'),
+          content: const Text('Mais'),
         )),
       ),
     );
   }
 }
 
-class PostHeaderBack extends StatelessWidget {
+class PostImage extends StatelessWidget {
   final Post post;
   final bool isView;
 
-  const PostHeaderBack({
+  const PostImage({
     Key key,
     @required this.post,
     @required this.isView,
@@ -181,42 +136,49 @@ class PostHeaderBack extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            IconButton(
-              icon: Icon(Icons.arrow_back),
-              iconSize: 30.0,
-              color: Colors.black,
-              onPressed: () => Navigator.pop(context),
+    return post.pet.imageUrl != null
+        ? InkWell(
+            onDoubleTap: () => Scaffold.of(context).showSnackBar(SnackBar(
+              content: const Text('Curtir'),
+            )),
+            onTap: () {
+              if (!isView) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ViewPetScreen(
+                      currentUser: currentUser,
+                      post: post,
+                    ),
+                  ),
+                );
+              }
+            },
+            child: Container(
+              width: double.infinity,
+              child: CachedNetworkImage(
+                imageUrl: post.pet.imageUrl,
+                fit: BoxFit.fitWidth,
+              ),
             ),
-            Container(
-              padding: EdgeInsets.only(top: 10.0),
-              width: MediaQuery.of(context).size.width * 0.86,
-              child: PostHeaderTitle(post: post, isView: isView),
-            ),
-          ],
-        ),
-      ],
-    );
+          )
+        : const SizedBox.shrink();
   }
 }
 
-class PostStats extends StatefulWidget {
+class PostButtons extends StatefulWidget {
   final Post post;
 
-  const PostStats({
+  const PostButtons({
     Key key,
     @required this.post,
   }) : super(key: key);
 
   @override
-  _PostStatsState createState() => _PostStatsState();
+  _PostButtonsState createState() => _PostButtonsState();
 }
 
-class _PostStatsState extends State<PostStats> {
+class _PostButtonsState extends State<PostButtons> {
   bool likes({User currentUser, Post post}) {
     return post.likes.contains(currentUser);
   }
@@ -234,14 +196,19 @@ class _PostStatsState extends State<PostStats> {
   @override
   Widget build(BuildContext context) {
     final isLiked = likes(currentUser: currentUser, post: widget.post);
+
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             FlatButton.icon(
-              onPressed: () =>
-                  {doLike(currentUser: currentUser, post: widget.post)},
+              onPressed: () => {
+                doLike(
+                  currentUser: currentUser,
+                  post: widget.post,
+                )
+              },
               icon: isLiked
                   ? Icon(
                       Icons.favorite,

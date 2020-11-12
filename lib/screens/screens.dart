@@ -1,6 +1,8 @@
 export 'nav_screen.dart';
 export 'home_screen.dart';
+export 'create_post_screen.dart';
 export 'view_post_screen.dart';
 export 'category_screen.dart';
 export 'category_list_screen.dart';
 export 'view_pet_screen.dart';
+export 'profile_screen.dart';

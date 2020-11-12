@@ -26,7 +26,7 @@ final List<User> users = [
     name: 'Sueli Santos',
     imageUrl:
         'https://storage.googleapis.com/adm-portal.appspot.com/_assets/modules/members/member_302177.jpg',
-    online: true,
+    online: false,
   ),
   User(
     id: 4,
