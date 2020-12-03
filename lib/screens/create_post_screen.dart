@@ -1,25 +1,96 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_dogao/config/palette.dart';
+
 import 'package:flutter_dogao/data/data.dart';
 
-import 'package:flutter_dogao/config/palette.dart';
+import 'package:flutter_dogao/models/models.dart';
 
 import 'package:flutter_dogao/widgtes/widgtes.dart';
 
 class CreatePostScreen extends StatelessWidget {
-  final List<String> categorias = ['Achado', 'Encontrado', 'Perdido'];
+  final List<Post> posts;
+
+  CreatePostScreen({
+    Key key,
+    @required this.posts,
+  }) : super(key: key);
+
+  final TextEditingController _controllerCaption = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Palette.scaffold,
+      backgroundColor: Colors.white,
+      bottomNavigationBar: Transform.translate(
+        offset: Offset(0.0, -1 * MediaQuery.of(context).viewInsets.bottom),
+        child: Container(
+          height: 50.0,
+          decoration: BoxDecoration(
+            color: Palette.scaffold,
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(30),
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 2.0),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    FlatButton.icon(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.image,
+                        color: Colors.lightGreen[700],
+                      ),
+                      label: Text(
+                        'Foto/vídeo',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                    ),
+                    FlatButton.icon(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.location_on,
+                        color: Colors.red,
+                      ),
+                      label: Text(
+                        'Localização',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
       body: CustomScrollView(
+        physics: BouncingScrollPhysics(),
         slivers: [
           SliverAppBar(
+            backgroundColor: Palette.scaffold,
+            elevation: 0.0,
             leading: IconButton(
               icon: Icon(Icons.close),
               onPressed: () => Navigator.pop(context),
             ),
+            floating: true,
             centerTitle: false,
             titleSpacing: 10,
             title: Text(
@@ -33,57 +104,67 @@ class CreatePostScreen extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.zero,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  final Post post = Post(
+                    id: posts.length + 1,
+                    user: currentUser,
+                    caption: _controllerCaption.text,
+                    timeAgo: new DateTime.now(),
+                  );
+
+                  Navigator.pop(context, post);
+                },
                 child: Text(
                   "Publicar",
                   style: TextStyle(
                     fontSize: 18,
-                    color: Colors.grey,
+                    // color: Colors.grey,
                   ),
                 ),
               ),
             ],
           ),
           SliverToBoxAdapter(
-            child: Container(
-              padding: const EdgeInsets.only(top: 5.0),
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    width: 0.8,
-                    color: Colors.black54,
-                  ),
-                ),
-                color: Colors.white,
-              ),
-              child: ListTile(
-                leading: Container(
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(top: 5.0),
                   decoration: BoxDecoration(
-                    shape: BoxShape.circle,
+                    color: Colors.white,
                   ),
-                  child: ProfileAvatar(
-                    imageUrl: currentUser.imageUrl,
-                    isActive: currentUser.online,
+                  child: ListTile(
+                    leading: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
+                      child: ProfileAvatar(
+                        imageUrl: currentUser.imageUrl,
+                        isActive: currentUser.online,
+                      ),
+                    ),
+                    title: Text(
+                      currentUser.name,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
-                title: Text(
-                  currentUser.name,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600,
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: TextField(
+                    controller: _controllerCaption,
+                    maxLines: null,
+                    minLines: 10,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Descreva aqui',
+                    ),
                   ),
-                  overflow: TextOverflow.ellipsis,
                 ),
-              ),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Container(
-              padding: const EdgeInsets.only(top: 5.0),
-              child: Padding(
-                padding: MediaQuery.of(context).padding,
-                child: null,
-              ),
+              ],
             ),
           ),
         ],
@@ -91,76 +172,3 @@ class CreatePostScreen extends StatelessWidget {
     );
   }
 }
-
-// class _SimpleMenuDemo extends StatefulWidget {
-//   const _SimpleMenuDemo({Key key, this.showInSnackBar}) : super(key: key);
-
-//   final void Function(String value) showInSnackBar;
-
-//   @override
-//   _SimpleMenuDemoState createState() => _SimpleMenuDemoState();
-// }
-
-// class _SimpleMenuDemoState extends State<_SimpleMenuDemo> {
-//   SimpleValue _simpleValue;
-
-//   void showAndSetMenuSelection(BuildContext context, SimpleValue value) {
-//     setState(() {
-//       _simpleValue = value;
-//     });
-//     widget.showInSnackBar(
-//       GalleryLocalizations.of(context)
-//           .demoMenuSelected(simpleValueToString(context, value)),
-//     );
-//   }
-
-//   String simpleValueToString(BuildContext context, SimpleValue value) => {
-//         SimpleValue.one: GalleryLocalizations.of(context).demoMenuItemValueOne,
-//         SimpleValue.two: GalleryLocalizations.of(context).demoMenuItemValueTwo,
-//         SimpleValue.three:
-//             GalleryLocalizations.of(context).demoMenuItemValueThree,
-//       }[value];
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     _simpleValue = SimpleValue.two;
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return PopupMenuButton<SimpleValue>(
-//       padding: EdgeInsets.zero,
-//       initialValue: _simpleValue,
-//       onSelected: (value) => showAndSetMenuSelection(context, value),
-//       child: ListTile(
-//         title: Text(
-//             GalleryLocalizations.of(context).demoMenuAnItemWithASimpleMenu),
-//         subtitle: Text(simpleValueToString(context, _simpleValue)),
-//       ),
-//       itemBuilder: (context) => <PopupMenuItem<SimpleValue>>[
-//         PopupMenuItem<SimpleValue>(
-//           value: SimpleValue.one,
-//           child: Text(simpleValueToString(
-//             context,
-//             SimpleValue.one,
-//           )),
-//         ),
-//         PopupMenuItem<SimpleValue>(
-//           value: SimpleValue.two,
-//           child: Text(simpleValueToString(
-//             context,
-//             SimpleValue.two,
-//           )),
-//         ),
-//         PopupMenuItem<SimpleValue>(
-//           value: SimpleValue.three,
-//           child: Text(simpleValueToString(
-//             context,
-//             SimpleValue.three,
-//           )),
-//         ),
-//       ],
-//     );
-//   }
-// }

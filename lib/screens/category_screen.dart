@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:flutter_dogao/config/palette.dart';
 
@@ -54,52 +55,55 @@ class CategoryScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25.0),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Encontre Seu",
-                        style: TextStyle(
-                          color: Palette.dogaoDark,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Encontre Seu",
+                          style: TextStyle(
+                            color: Palette.dogaoDark,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
                         ),
-                      ),
-                      Text(
-                        "Adorável animal de estimação",
-                        style: TextStyle(
-                          color: Colors.grey[800],
+                        Text(
+                          "Adorável animal de estimação",
+                          style: TextStyle(
+                            color: Colors.grey[800],
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: "Pesquisar",
-                            hintStyle: TextStyle(fontSize: 14),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(25),
-                              borderSide: BorderSide(
-                                width: 0.0,
-                                style: BorderStyle.none,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: TextField(
+                            decoration: InputDecoration(
+                              hintText: "Pesquisar",
+                              hintStyle: TextStyle(fontSize: 14),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25),
+                                borderSide: BorderSide(
+                                  width: 0.0,
+                                  style: BorderStyle.none,
+                                ),
                               ),
-                            ),
-                            filled: true,
-                            fillColor: Colors.grey[200],
-                            contentPadding: const EdgeInsets.only(right: 30),
-                            prefixIcon: Padding(
-                              padding:
-                                  const EdgeInsets.only(right: 16.0, left: 24),
-                              child: Icon(
-                                Icons.search,
-                                color: Colors.grey[500],
-                                size: 24,
+                              filled: true,
+                              fillColor: Colors.grey[200],
+                              contentPadding: const EdgeInsets.only(right: 30),
+                              prefixIcon: Padding(
+                                padding: const EdgeInsets.only(
+                                    right: 16.0, left: 24),
+                                child: Icon(
+                                  Icons.search,
+                                  color: Colors.grey[500],
+                                  size: 24,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -121,16 +125,36 @@ class CategoryScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        PetCategory(category: "Hamsters", total: "56"),
-                        PetCategory(category: "Gatos", total: "210"),
+                        PetCategory(
+                          specie: Species.hamster,
+                          total: posts
+                              .where((p) => p.pet.specie == Species.hamster)
+                              .length,
+                        ),
+                        PetCategory(
+                          specie: Species.cat,
+                          total: posts
+                              .where((p) => p.pet.specie == Species.cat)
+                              .length,
+                        ),
                       ],
                     ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      PetCategory(category: "Coelhos", total: "90"),
-                      PetCategory(category: "Cachorros", total: "340"),
+                      PetCategory(
+                        specie: Species.bunny,
+                        total: posts
+                            .where((p) => p.pet.specie == Species.bunny)
+                            .length,
+                      ),
+                      PetCategory(
+                        specie: Species.dog,
+                        total: posts
+                            .where((p) => p.pet.specie == Species.dog)
+                            .length,
+                      ),
                     ],
                   ),
                 ],
@@ -145,17 +169,12 @@ class CategoryScreen extends StatelessWidget {
                   margin: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: CategoryHeader(text: "Animal de Estimação mais Novo"),
                 ),
-                Container(
-                  height: 300.0,
-                  child: ListView.builder(
-                    physics: BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: posts.length,
-                    itemBuilder: (context, index) {
-                      final Post post = posts[index];
-                      return PetContainer(index: index, post: post);
-                    },
-                  ),
+                CarouselSlider(
+                  height: 400,
+                  enableInfiniteScroll: false,
+                  items: posts.map((p) {
+                    return PetContainer(post: p);
+                  }).toList(),
                 ),
               ],
             ),
@@ -168,23 +187,14 @@ class CategoryScreen extends StatelessWidget {
                   margin: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: CategoryHeader(text: "Animais para Doação"),
                 ),
-                Container(
-                  height: 300.0,
-                  child: ListView.builder(
-                    physics: BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: posts
-                        .where((p) => p.pet.category == Category.donation)
-                        .length,
-                    itemBuilder: (context, index) {
-                      var post = posts
-                          .where((p) => p.pet.category == Category.donation);
-                      return PetContainer(
-                        index: index,
-                        post: post.toList()[index],
-                      );
-                    },
-                  ),
+                CarouselSlider(
+                  height: 400,
+                  enableInfiniteScroll: false,
+                  items: posts
+                      .where((p) => p.pet.category == Category.donation)
+                      .map((p) {
+                    return PetContainer(post: p);
+                  }).toList(),
                 ),
               ],
             ),
@@ -197,23 +207,14 @@ class CategoryScreen extends StatelessWidget {
                   margin: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: CategoryHeader(text: "Animais Encontrado"),
                 ),
-                Container(
-                  height: 300.0,
-                  child: ListView.builder(
-                    physics: BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: posts
-                        .where((p) => p.pet.category == Category.find)
-                        .length,
-                    itemBuilder: (context, index) {
-                      var post =
-                          posts.where((p) => p.pet.category == Category.find);
-                      return PetContainer(
-                        index: index,
-                        post: post.toList()[index],
-                      );
-                    },
-                  ),
+                CarouselSlider(
+                  height: 400,
+                  enableInfiniteScroll: false,
+                  items: posts
+                      .where((p) => p.pet.category == Category.find)
+                      .map((p) {
+                    return PetContainer(post: p);
+                  }).toList(),
                 ),
               ],
             ),
@@ -228,23 +229,14 @@ class CategoryScreen extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 16.0),
-                  child: Container(
-                    height: 300.0,
-                    child: ListView.builder(
-                      physics: BouncingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      itemCount: posts
-                          .where((p) => p.pet.category == Category.lost)
-                          .length,
-                      itemBuilder: (context, index) {
-                        var post =
-                            posts.where((p) => p.pet.category == Category.lost);
-                        return PetContainer(
-                          index: index,
-                          post: post.toList()[index],
-                        );
-                      },
-                    ),
+                  child: CarouselSlider(
+                    height: 400,
+                    enableInfiniteScroll: false,
+                    items: posts
+                        .where((p) => p.pet.category == Category.lost)
+                        .map((p) {
+                      return PetContainer(post: p);
+                    }).toList(),
                   ),
                 ),
               ],
@@ -257,12 +249,10 @@ class CategoryScreen extends StatelessWidget {
 }
 
 class PetContainer extends StatelessWidget {
-  final int index;
   final Post post;
 
   const PetContainer({
     Key key,
-    @required this.index,
     @required this.post,
   }) : super(key: key);
 
@@ -275,11 +265,8 @@ class PetContainer extends StatelessWidget {
           Radius.circular(25),
         ),
       ),
-      width: 180.0,
-      margin: EdgeInsets.only(
-        right: index != null ? 16.0 : 0,
-        left: index == 0 ? 16.0 : 0,
-      ),
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.symmetric(horizontal: 10.0),
       child: InkWell(
         borderRadius: BorderRadius.circular(25),
         onTap: () {
@@ -387,12 +374,12 @@ class PetContainer extends StatelessWidget {
 }
 
 class PetCategory extends StatelessWidget {
-  final String category;
-  final String total;
+  final Species specie;
+  final int total;
 
   const PetCategory({
     Key key,
-    @required this.category,
+    @required this.specie,
     @required this.total,
   }) : super(key: key);
 
@@ -428,7 +415,7 @@ class PetCategory extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => CategoryListScreen(
-                  category: category,
+                  specie: specie,
                 ),
               ),
             );
@@ -442,7 +429,13 @@ class PetCategory extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      category,
+                      Species.hamster == specie
+                          ? 'Hamsters'
+                          : Species.cat == specie
+                              ? 'Gatos'
+                              : Species.bunny == specie
+                                  ? 'Coelhos'
+                                  : 'Cachorros',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16.0,
@@ -450,7 +443,7 @@ class PetCategory extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "Total de " + total,
+                      "Total de " + total.toString(),
                       style: TextStyle(
                         color: Colors.white,
                       ),

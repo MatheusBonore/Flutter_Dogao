@@ -11,7 +11,12 @@ import 'package:flutter_dogao/screens/screens.dart';
 
 import 'package:flutter_dogao/widgtes/widgtes.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,9 +71,17 @@ class HomeScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => CreatePostScreen(),
+                      builder: (context) => CreatePostScreen(posts: posts),
                     ),
-                  );
+                  ).then((value) {
+                    if (value != null) {
+                      setState(() {
+                        posts.add(value);
+                        posts.sort(
+                            (a, b) => a.timeAgo.isAfter(b.timeAgo) ? -1 : 1);
+                      });
+                    }
+                  });
                 },
                 child: Container(
                   padding: const EdgeInsets.fromLTRB(15.0, 20.0, 15.0, 5.0),
@@ -86,7 +99,7 @@ class HomeScreen extends StatelessWidget {
                           SizedBox(width: 8.0),
                           Expanded(
                             child: Text(
-                              'Descrever um pet aqui!',
+                              'Descreva aqui',
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.grey[700],

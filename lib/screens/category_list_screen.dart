@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_dogao/config/palette.dart';
 
+import 'package:flutter_dogao/models/models.dart';
+
 class CategoryListScreen extends StatelessWidget {
-  final String category;
+  final Species specie;
 
   const CategoryListScreen({
     Key key,
-    @required this.category,
+    @required this.specie,
   }) : super(key: key);
 
   @override
@@ -22,7 +25,13 @@ class CategoryListScreen extends StatelessWidget {
             ),
             centerTitle: true,
             titleSpacing: -5,
-            title: Text(category),
+            title: Text(
+              Species.hamster == specie
+                  ? 'Hamsters'
+                  : Species.cat == specie
+                      ? 'Gatos'
+                      : Species.bunny == specie ? 'Coelhos' : 'Cachorros',
+            ),
           ),
           SliverToBoxAdapter(
             child: Column(
@@ -71,14 +80,6 @@ class PetFilter extends StatelessWidget {
           width: 1.0,
           color: selected ? Colors.transparent : Colors.grey[300],
         ),
-        // boxShadow: [
-        //   BoxShadow(
-        //     color: selected ? Palette.dogaoRed.withOpacity(0.5) : Colors.white,
-        //     spreadRadius: 3,
-        //     blurRadius: 5,
-        //     offset: Offset(0, 0),
-        //   ),
-        // ],
       ),
       child: Row(
         children: [

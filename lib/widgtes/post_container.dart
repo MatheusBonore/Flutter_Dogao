@@ -23,40 +23,41 @@ class PostContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: !isView
-          ? const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0)
-          : const EdgeInsets.symmetric(vertical: 5.0),
-      padding: const EdgeInsets.only(top: 8.0),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(25.0),
-      ),
-      child: Column(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              PostTop(post: post),
-              const SizedBox(height: 4.0),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                child: Text(post.caption),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: PostImage(post: post, isView: isView),
-          ),
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-            child: PostButtons(post: post),
-          ),
-        ],
-      ),
-    );
+    return Text(post.id.toString() + '; ' + post.timeAgo.toString());
+    // return Container(
+    //   margin: !isView
+    //       ? const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0)
+    //       : const EdgeInsets.symmetric(vertical: 5.0),
+    //   padding: const EdgeInsets.only(top: 8.0),
+    //   decoration: BoxDecoration(
+    //     color: Colors.white,
+    //     borderRadius: BorderRadius.circular(25.0),
+    //   ),
+    //   child: Column(
+    //     children: [
+    //       Column(
+    //         crossAxisAlignment: CrossAxisAlignment.stretch,
+    //         children: [
+    //           PostTop(post: post),
+    //           const SizedBox(height: 4.0),
+    //           Padding(
+    //             padding: const EdgeInsets.symmetric(horizontal: 15.0),
+    //             child: Text(post.caption),
+    //           ),
+    //         ],
+    //       ),
+    //       Padding(
+    //         padding: const EdgeInsets.only(top: 16.0),
+    //         child: PostImage(post: post, isView: isView),
+    //       ),
+    //       Padding(
+    //         padding:
+    //             const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+    //         child: PostButtons(post: post),
+    //       ),
+    //     ],
+    //   ),
+    // );
   }
 }
 

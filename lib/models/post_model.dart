@@ -6,14 +6,14 @@ class Post {
   final User user;
   final Pet pet;
   final String caption;
-  final String timeAgo;
+  final DateTime timeAgo;
   final List<User> likes;
   final List<Comment> comments;
 
   const Post({
     @required this.id,
     @required this.user,
-    @required this.pet,
+    this.pet,
     @required this.caption,
     @required this.timeAgo,
     this.likes,

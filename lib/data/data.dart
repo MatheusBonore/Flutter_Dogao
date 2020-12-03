@@ -307,121 +307,121 @@ final List<Comment> comments = [
 ];
 
 final List<Post> posts = [
-  Post(
-      id: 1,
-      user: users[4],
-      pet: pets[1],
-      caption:
-          'Bom dia a todos, esses cachorrinhos estão disponíveis para adoção.',
-      timeAgo: '58m',
-      likes: [
-        users[0],
-        users[1],
-        users[4],
-        users[5],
-        users[7],
-        users[9],
-      ],
-      comments: [
-        comments[0],
-        comments[1]
-      ]),
-  Post(
-    id: 2,
-    user: users[5],
-    pet: pets[2],
-    caption:
-        'Boa dia pessoal, perdi meu cachorro anteontem no bairro Jardim Acapulco, é um Bull Terrier, pelo caramelo, estava com uma coleira azul e responde pelo nome de Pike, se alguém o encontrar, por favor, me avise.',
-    timeAgo: '3hr',
-    likes: [
-      users[3],
-      users[5],
-      users[7],
-      users[8],
-      users[20],
-    ],
-    comments: [
-      comments[2],
-      comments[3],
-      comments[4],
-    ],
-  ),
-  Post(
-    id: 3,
-    user: users[4],
-    pet: pets[2],
-    caption:
-        'Boa noite pessoal, encontrei esse carinha, com coleira, perdido pela Avenida Sampaio Vidal, fiz a retirada do bichinho, dei banho e tosei, agora estou atrás do seu dono.',
-    timeAgo: '8hr',
-    likes: [
-      users[2],
-      users[3],
-      users[4],
-      users[6],
-    ],
-    comments: [
-      comments[5],
-      comments[6],
-      comments[7],
-      comments[8],
-    ],
-  ),
-  Post(
-    id: 4,
-    user: users[3],
-    pet: pets[0],
-    caption: 'Cachorrinho perdido na Vila Barros, alguém sabe quem é o dono?',
-    timeAgo: '15hr',
-    likes: [
-      users[0],
-      users[1],
-      users[2],
-    ],
-    comments: [
-      comments[9],
-      comments[10],
-    ],
-  ),
-  Post(
-    id: 5,
-    user: users[0],
-    pet: pets[0],
-    caption:
-        'Bom dia, achei um Pastor Alemão aqui na Praça Bom Jesus, já é um pouco velhinho e está sem coleira, é de alguém?',
-    timeAgo: '1d',
-    likes: [
-      users[0],
-      users[1],
-      users[2],
-      users[6],
-      users[7],
-    ],
-    comments: [
-      comments[11],
-    ],
-  ),
-  Post(
-    id: 6,
-    user: users[9],
-    pet: pets[2],
-    caption:
-        'Boa noite, perdi meu cachorrinho, é um Pincher e responde pelo nome de Teddy.',
-    timeAgo: '1d',
-    likes: [
-      users[0],
-      users[1],
-      users[2],
-      users[3],
-      users[4],
-      users[8],
-      users[9],
-    ],
-    comments: [
-      comments[12],
-      comments[13],
-      comments[14],
-      comments[15],
-      comments[16],
-    ],
-  ),
+  // Post(
+  //     id: 1,
+  //     user: users[4],
+  //     pet: pets[1],
+  //     caption:
+  //         'Bom dia a todos, esses cachorrinhos estão disponíveis para adoção.',
+  //     timeAgo: new DateTime.now(),
+  //     likes: [
+  //       users[0],
+  //       users[1],
+  //       users[4],
+  //       users[5],
+  //       users[7],
+  //       users[9],
+  //     ],
+  //     comments: [
+  //       comments[0],
+  //       comments[1]
+  //     ]),
+  // Post(
+  //   id: 2,
+  //   user: users[5],
+  //   pet: pets[2],
+  //   caption:
+  //       'Boa dia pessoal, perdi meu cachorro anteontem no bairro Jardim Acapulco, é um Bull Terrier, pelo caramelo, estava com uma coleira azul e responde pelo nome de Pike, se alguém o encontrar, por favor, me avise.',
+  //   timeAgo: new DateTime.now(),
+  //   likes: [
+  //     users[3],
+  //     users[5],
+  //     users[7],
+  //     users[8],
+  //     users[20],
+  //   ],
+  //   comments: [
+  //     comments[2],
+  //     comments[3],
+  //     comments[4],
+  //   ],
+  // ),
+  // Post(
+  //   id: 3,
+  //   user: users[4],
+  //   pet: pets[2],
+  //   caption:
+  //       'Boa noite pessoal, encontrei esse carinha, com coleira, perdido pela Avenida Sampaio Vidal, fiz a retirada do bichinho, dei banho e tosei, agora estou atrás do seu dono.',
+  //   timeAgo: new DateTime.now(),
+  //   likes: [
+  //     users[2],
+  //     users[3],
+  //     users[4],
+  //     users[6],
+  //   ],
+  //   comments: [
+  //     comments[5],
+  //     comments[6],
+  //     comments[7],
+  //     comments[8],
+  //   ],
+  // ),
+  // Post(
+  //   id: 4,
+  //   user: users[3],
+  //   pet: pets[0],
+  //   caption: 'Cachorrinho perdido na Vila Barros, alguém sabe quem é o dono?',
+  //   timeAgo: new DateTime.now(),
+  //   likes: [
+  //     users[0],
+  //     users[1],
+  //     users[2],
+  //   ],
+  //   comments: [
+  //     comments[9],
+  //     comments[10],
+  //   ],
+  // ),
+  // Post(
+  //   id: 5,
+  //   user: users[0],
+  //   pet: pets[0],
+  //   caption:
+  //       'Bom dia, achei um Pastor Alemão aqui na Praça Bom Jesus, já é um pouco velhinho e está sem coleira, é de alguém?',
+  //   timeAgo: new DateTime.now(),
+  //   likes: [
+  //     users[0],
+  //     users[1],
+  //     users[2],
+  //     users[6],
+  //     users[7],
+  //   ],
+  //   comments: [
+  //     comments[11],
+  //   ],
+  // ),
+  // Post(
+  //   id: 6,
+  //   user: users[9],
+  //   pet: pets[2],
+  //   caption:
+  //       'Boa noite, perdi meu cachorrinho, é um Pincher e responde pelo nome de Teddy.',
+  //   timeAgo: new DateTime.now(),
+  //   likes: [
+  //     users[0],
+  //     users[1],
+  //     users[2],
+  //     users[3],
+  //     users[4],
+  //     users[8],
+  //     users[9],
+  //   ],
+  //   comments: [
+  //     comments[12],
+  //     comments[13],
+  //     comments[14],
+  //     comments[15],
+  //     comments[16],
+  //   ],
+  // ),
 ];
