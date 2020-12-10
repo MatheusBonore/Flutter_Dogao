@@ -80,7 +80,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ImagesScreen(),
+                            builder: (context) => ImageScreen(),
                           ),
                         ).then((value) {
                           if (value != null && value != '') {
@@ -106,7 +106,12 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                       ),
                     ),
                     FlatButton.icon(
-                      onPressed: () {},
+                      onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LocationScreen(),
+                        ),
+                      ),
                       icon: Icon(
                         Icons.location_on,
                         color: Colors.red,

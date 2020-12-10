@@ -17,19 +17,19 @@ import 'package:flutter_dogao/screens/screens.dart';
 
 // import 'package:flutter_dogao/widgtes/widgtes.dart';
 
-class ImagesScreen extends StatefulWidget {
+class ImageScreen extends StatefulWidget {
   final bool previousScreen;
 
-  const ImagesScreen({
+  const ImageScreen({
     Key key,
     this.previousScreen = true,
   }) : super(key: key);
 
   @override
-  _ImagesScreenState createState() => _ImagesScreenState();
+  _ImageScreenState createState() => _ImageScreenState();
 }
 
-class _ImagesScreenState extends State<ImagesScreen> {
+class _ImageScreenState extends State<ImageScreen> {
   bool isLoading = true;
 
   List<FileModel> files;

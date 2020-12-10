@@ -148,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ImagesScreen(
+                          builder: (context) => ImageScreen(
                             previousScreen: false,
                           ),
                         ),
@@ -172,7 +172,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   FlatButton.icon(
-                    onPressed: () {},
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LocationScreen(),
+                      ),
+                    ),
                     icon: Icon(
                       Icons.location_on,
                       color: Colors.red,
@@ -330,11 +335,21 @@ class _HomeScreenState extends State<HomeScreen> {
                     : const SizedBox(),
                 post.image != null && post.image != ''
                     ? Container(
-                        child: Image.file(
-                          File(post.image),
-                          fit: BoxFit.cover,
-                          height: MediaQuery.of(context).size.height * 0.45,
-                          width: MediaQuery.of(context).size.width,
+                        child: InkWell(
+                          onDoubleTap: () => {
+                            setState(() {
+                              if (post.likes.contains(currentUser))
+                                post.likes.remove(currentUser);
+                              else
+                                post.likes.add(currentUser);
+                            })
+                          },
+                          child: Image.file(
+                            File(post.image),
+                            fit: BoxFit.cover,
+                            height: MediaQuery.of(context).size.height * 0.45,
+                            width: MediaQuery.of(context).size.width,
+                          ),
                         ),
                       )
                     : const SizedBox(),
@@ -383,7 +398,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           const SizedBox(width: 8.0),
                           FlatButton.icon(
                             onPressed: () =>
-                                {buildShowModalBottomSheetComments(context)},
+                                Scaffold.of(context).showSnackBar(SnackBar(
+                              content: const Text('Comentar'),
+                            )),
                             icon: const Icon(
                               Icons.chat_bubble_outline,
                               color: Colors.grey,
@@ -409,85 +426,6 @@ class _HomeScreenState extends State<HomeScreen> {
         );
       },
       childCount: posts.length,
-    );
-  }
-
-  Future buildShowModalBottomSheetComments(BuildContext context) {
-    return showModalBottomSheet(
-      isScrollControlled: true,
-      context: context,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(25),
-          topRight: Radius.circular(25),
-        ),
-      ),
-      builder: (context) => Container(
-        // height: MediaQuery.of(context).size.height * 0.95,
-        child: Column(
-          children: [
-            Transform.translate(
-              offset:
-                  Offset(0.0, -1 * MediaQuery.of(context).viewInsets.bottom),
-              child: Container(
-                height: 50.0,
-                decoration: BoxDecoration(
-                  color: Palette.scaffold,
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(30),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 2.0),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          FlatButton.icon(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.image,
-                              color: Colors.lightGreen[700],
-                            ),
-                            label: Text(
-                              'Foto/vídeo',
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                          ),
-                          FlatButton.icon(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.location_on,
-                              color: Colors.red,
-                            ),
-                            label: Text(
-                              'Localização',
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
