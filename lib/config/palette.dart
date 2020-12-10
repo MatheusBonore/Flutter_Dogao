@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+export 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
 class Palette {
   static const Color scaffold = Color(0xFFEAEAEA);
 
