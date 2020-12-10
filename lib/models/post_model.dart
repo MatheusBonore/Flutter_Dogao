@@ -2,21 +2,25 @@ import 'package:meta/meta.dart';
 import 'package:flutter_dogao/models/models.dart';
 
 class Post {
-  final int id;
-  final User user;
-  final Pet pet;
-  final String caption;
-  final DateTime timeAgo;
-  final List<User> likes;
-  final List<Comment> comments;
+  int id;
+  User user;
+  Pet pet;
+  String caption;
+  String image;
+  DateTime timeAgo;
+  String location;
+  List<User> likes;
+  List<Comment> comments;
 
-  const Post({
+  Post({
     @required this.id,
     @required this.user,
     this.pet,
     @required this.caption,
+    this.image,
     @required this.timeAgo,
-    this.likes,
-    this.comments,
+    @required this.location,
+    @required this.likes,
+    @required this.comments,
   });
 }

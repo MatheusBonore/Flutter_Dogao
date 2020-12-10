@@ -1,15 +1,15 @@
 import 'package:meta/meta.dart';
 
 class User {
-  final int id;
-  final String name;
-  final String imageUrl;
-  final bool online;
+  int id;
+  String name;
+  String image;
+  bool online;
 
-  const User({
+  User({
     @required this.id,
     @required this.name,
-    @required this.imageUrl,
+    @required this.image,
     @required this.online,
   });
 }

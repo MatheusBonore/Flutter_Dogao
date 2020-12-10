@@ -1,22 +1,56 @@
+// import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
-import 'package:flutter_dogao/config/palette.dart';
+// import 'package:storage_path/storage_path.dart';
 
 import 'package:flutter_dogao/data/data.dart';
 
 import 'package:flutter_dogao/models/models.dart';
 
+import 'package:flutter_dogao/config/palette.dart';
+
+import 'package:flutter_dogao/screens/screens.dart';
+
 import 'package:flutter_dogao/widgtes/widgtes.dart';
 
-class CreatePostScreen extends StatelessWidget {
-  final List<Post> posts;
+class CreatePostScreen extends StatefulWidget {
+  final Post post;
+  final String image;
+  final String location;
 
   CreatePostScreen({
     Key key,
-    @required this.posts,
+    @required this.post,
+    this.image,
+    this.location,
   }) : super(key: key);
 
-  final TextEditingController _controllerCaption = TextEditingController();
+  @override
+  _CreatePostScreenState createState() => _CreatePostScreenState();
+}
+
+class _CreatePostScreenState extends State<CreatePostScreen> {
+  bool isLoading = true;
+
+  TextEditingController _controllerCaption = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.image != null && widget.image != '') {
+      widget.post.image = widget.image;
+    }
+    if (widget.location != null && widget.location != '') {
+      widget.post.location = widget.location;
+    }
+
+    setState(() {
+      isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +74,20 @@ class CreatePostScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     FlatButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ImagesScreen(),
+                          ),
+                        ).then((value) {
+                          if (value != null && value != '') {
+                            setState(() {
+                              widget.post.image = value;
+                            });
+                          }
+                        });
+                      },
                       icon: Icon(
                         Icons.image,
                         color: Colors.lightGreen[700],
@@ -105,20 +152,12 @@ class CreatePostScreen extends StatelessWidget {
                   borderRadius: BorderRadius.zero,
                 ),
                 onPressed: () {
-                  final Post post = Post(
-                    id: posts.length + 1,
-                    user: currentUser,
-                    caption: _controllerCaption.text,
-                    timeAgo: new DateTime.now(),
-                  );
-
-                  Navigator.pop(context, post);
+                  Navigator.pop(context, widget.post);
                 },
                 child: Text(
                   "Publicar",
                   style: TextStyle(
                     fontSize: 18,
-                    // color: Colors.grey,
                   ),
                 ),
               ),
@@ -138,8 +177,7 @@ class CreatePostScreen extends StatelessWidget {
                         shape: BoxShape.circle,
                       ),
                       child: ProfileAvatar(
-                        imageUrl: currentUser.imageUrl,
-                        isActive: currentUser.online,
+                        imageUrl: currentUser.image,
                       ),
                     ),
                     title: Text(
@@ -148,21 +186,43 @@ class CreatePostScreen extends StatelessWidget {
                         color: Colors.black,
                         fontWeight: FontWeight.w600,
                       ),
-                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: TextField(
-                    controller: _controllerCaption,
-                    maxLines: null,
-                    minLines: 10,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Descreva aqui',
+                Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: TextField(
+                        controller: _controllerCaption,
+                        maxLines: null,
+                        minLines:
+                            widget.post.image != null && widget.post.image != ''
+                                ? 2
+                                : 10,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Descreva aqui',
+                        ),
+                        onChanged: (value) {
+                          widget.post.caption = value;
+                        },
+                      ),
                     ),
-                  ),
+                    widget.post.image != null && widget.post.image != ''
+                        ? Container(
+                            decoration: BoxDecoration(
+                              color: Colors.blue,
+                            ),
+                            child: Image.file(
+                              File(widget.post.image),
+                              fit: BoxFit.cover,
+                              height: MediaQuery.of(context).size.height * 0.45,
+                              width: MediaQuery.of(context).size.width,
+                            ),
+                          )
+                        : const SizedBox(),
+                  ],
                 ),
               ],
             ),
