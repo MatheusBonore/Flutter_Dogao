@@ -1,5 +1,5 @@
 // import 'dart:convert';
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:flutter/material.dart';
 
@@ -23,8 +23,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<bool> viewMoreCaption = [];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -215,213 +213,15 @@ class _HomeScreenState extends State<HomeScreen> {
     return SliverChildBuilderDelegate(
       (context, index) {
         final Post post = posts[index];
-        viewMoreCaption.add(false);
 
-        return Padding(
+        return Container(
+          margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0),
           padding: EdgeInsets.only(
             bottom: post == posts[posts.length - 1] ? 5.0 : 0.0,
           ),
-          child: Container(
-            margin: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-              vertical: 5.0,
-            ),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(25.0),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                ListTile(
-                  leading: Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                    ),
-                    child: ProfileAvatar(
-                      imageUrl: post.user.image,
-                      isActive: post.user.online,
-                    ),
-                  ),
-                  title: Text(
-                    post.user.name,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  subtitle: Row(
-                    children: [
-                      Text(
-                        '${post.timeAgo} •',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 12.0,
-                        ),
-                      ),
-                      Icon(
-                        Icons.location_on,
-                        color: Colors.grey[600],
-                        size: 12.0,
-                      ),
-                      Text(
-                        post.location,
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 12.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                  trailing: IconButton(
-                    icon: const Icon(
-                      Icons.more_horiz,
-                      color: Colors.black,
-                    ),
-                    onPressed: () => Scaffold.of(context).showSnackBar(SnackBar(
-                      content: const Text('Mais'),
-                    )),
-                  ),
-                ),
-                post.caption != null && post.caption != ''
-                    ? Container(
-                        margin: const EdgeInsets.only(bottom: 15.0),
-                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            InkWell(
-                              onTap: () => {
-                                setState(() {
-                                  if (!viewMoreCaption[index]) {
-                                    viewMoreCaption[index] = true;
-                                  }
-                                })
-                              },
-                              child: RichText(
-                                text: TextSpan(
-                                  text: post.caption.length >= 155
-                                      ? post.caption.substring(
-                                          0,
-                                          !viewMoreCaption[index]
-                                              ? 155
-                                              : post.caption.length,
-                                        )
-                                      : post.caption,
-                                  style: DefaultTextStyle.of(context).style,
-                                  children: [
-                                    TextSpan(
-                                      text: !viewMoreCaption[index] &&
-                                              post.caption.length >= 155
-                                          ? '...'
-                                          : null,
-                                    ),
-                                    TextSpan(
-                                      text: !viewMoreCaption[index] &&
-                                              post.caption.length >= 155
-                                          ? ' Ver mais'
-                                          : null,
-                                      style: TextStyle(
-                                        color: Colors.blue,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    : const SizedBox(),
-                post.image != null && post.image != ''
-                    ? Container(
-                        child: InkWell(
-                          onDoubleTap: () => {
-                            setState(() {
-                              if (post.likes.contains(currentUser))
-                                post.likes.remove(currentUser);
-                              else
-                                post.likes.add(currentUser);
-                            })
-                          },
-                          child: Image.file(
-                            File(post.image),
-                            fit: BoxFit.cover,
-                            height: MediaQuery.of(context).size.height * 0.45,
-                            width: MediaQuery.of(context).size.width,
-                          ),
-                        ),
-                      )
-                    : const SizedBox(),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          FlatButton.icon(
-                            onPressed: () => {
-                              setState(() {
-                                if (post.likes.contains(currentUser))
-                                  post.likes.remove(currentUser);
-                                else
-                                  post.likes.add(currentUser);
-                              })
-                            },
-                            icon: post.likes.contains(currentUser)
-                                ? Icon(
-                                    Icons.favorite,
-                                    color: Colors.red,
-                                  )
-                                : Icon(
-                                    Icons.favorite_border,
-                                    color: Colors.grey,
-                                  ),
-                            label: post.likes.contains(currentUser)
-                                ? Text(
-                                    '${post.likes.length}',
-                                    style: TextStyle(
-                                      color: Colors.red,
-                                    ),
-                                  )
-                                : Text(
-                                    '${post.likes.length}',
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                          ),
-                          const SizedBox(width: 8.0),
-                          FlatButton.icon(
-                            onPressed: () =>
-                                Scaffold.of(context).showSnackBar(SnackBar(
-                              content: const Text('Comentar'),
-                            )),
-                            icon: const Icon(
-                              Icons.chat_bubble_outline,
-                              color: Colors.grey,
-                            ),
-                            label: Text(
-                              'Comentar',
-                              style: TextStyle(
-                                color: Colors.grey,
-                              ),
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+          child: PostContainer(
+            index: index,
+            post: post,
           ),
         );
       },
