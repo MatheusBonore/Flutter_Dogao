@@ -230,6 +230,7 @@ class _PostContainerState extends State<PostContainer> {
           Icons.more_horiz,
           color: Colors.black,
         ),
+        // ignore: deprecated_member_use
         onPressed: () => Scaffold.of(context).showSnackBar(SnackBar(
           content: const Text('Mais'),
         )),

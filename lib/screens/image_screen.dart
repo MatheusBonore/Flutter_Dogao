@@ -1,7 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
+// import 'dart:io';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dogao/widgtes/widgtes.dart';
 
 import 'package:storage_path/storage_path.dart';
 
@@ -30,10 +32,11 @@ class ImageScreen extends StatefulWidget {
 }
 
 class _ImageScreenState extends State<ImageScreen> {
+  ModalBottomSheet modalBottomSheet = new ModalBottomSheet();
   bool isLoading = true;
 
-  List<FileModel> files;
-  FileModel selectedFile;
+  List<FileModel> files = <FileModel>[];
+  FileModel selectedFile = new FileModel();
   String image;
 
   Future<void> getImagesPath() async {
@@ -44,11 +47,15 @@ class _ImageScreenState extends State<ImageScreen> {
 
     if (files != null && files.length > 0)
       setState(() {
-        selectedFile = files[0];
         image = files[0].files[0];
-
         isLoading = false;
       });
+
+    setState(() {
+      files.insert(0, new FileModel(files: [], folder: 'Galeria'));
+      files.insert(1, new FileModel(files: [], folder: 'Outro...'));
+      selectedFile = files[0];
+    });
   }
 
   @override
@@ -60,168 +67,109 @@ class _ImageScreenState extends State<ImageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () => Navigator.pop(context),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.close),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: FlatButton(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          onPressed: () => modalBottomSheet.mainBottomSheet(
+            context,
+            ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: files.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ListTile(
+                  title: Text(files[index].folder),
+                  onTap: () {
+                    if (!files[index].folder.contains('Galeria') &&
+                        !files[index].folder.contains('Outro...')) {
+                      assert(files[index].files.length > 0);
+                      image = files[index].files[0];
+                    }
+
+                    setState(() {
+                      selectedFile = files[index];
+                    });
+
+                    Navigator.pop(context);
+                  },
+                );
+              },
             ),
-            title: !isLoading
-                ? DropdownButtonHideUnderline(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.35,
-                      child: DropdownButton<FileModel>(
-                        isExpanded: true,
-                        items: getImages(),
-                        onChanged: (FileModel value) {
-                          assert(value.files.length > 0);
-                          image = value.files[0];
-                          setState(() {
-                            selectedFile = value;
-                          });
-                        },
-                        value: selectedFile,
-                      ),
-                    ),
-                  )
-                : const SizedBox(),
-            elevation: 0.0,
-            actions: [
-              FlatButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.zero,
+          ),
+          child: Row(
+            children: [
+              Text(
+                selectedFile.folder ?? '',
+                style: TextStyle(
+                  fontSize: 18,
                 ),
-                onPressed: () {
-                  if (widget.previousScreen) {
-                    Navigator.pop(context, image);
-                  } else {
+              ),
+              Icon(Icons.arrow_drop_down),
+            ],
+          ),
+        ),
+        elevation: 0.0,
+        actions: [
+          !isLoading
+              ? IconButton(
+                  icon: Icon(
+                    Icons.arrow_forward,
+                    color: Palette.dogaoRed,
+                  ),
+                  onPressed: () {
+                    if (widget.previousScreen) {
+                      Navigator.pop(context, image);
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CreatePostScreen(
+                            post: new Post(
+                              id: posts.length + 1,
+                              user: currentUser,
+                              caption: '',
+                              image: '',
+                              timeAgo: DateTime.now(),
+                              location: 'Marília - SP',
+                              likes: [],
+                              comments: [],
+                            ),
+                            image: image,
+                          ),
+                        ),
+                      ).then((value) {
+                        Navigator.pop(context, value);
+                      });
+                    }
+                  },
+                )
+              : IconButton(
+                  icon: Icon(
+                    Icons.camera_alt,
+                    color: Palette.dogaoRed,
+                  ),
+                  onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => CreatePostScreen(
-                          post: new Post(
-                            id: posts.length + 1,
-                            user: currentUser,
-                            caption: '',
-                            image: '',
-                            timeAgo: DateTime.now(),
-                            location: 'Marília - SP',
-                            likes: [],
-                            comments: [],
-                          ),
-                          image: image,
-                        ),
+                        builder: (context) => CameraScreen(),
                       ),
-                    ).then((value) {
-                      Navigator.pop(context, value);
-                    });
-                  }
-                },
-                child: Text(
-                  'Avançar',
-                  style: TextStyle(
-                    color: Palette.dogaoRed,
-                    fontSize: 18,
-                  ),
+                    );
+                  },
                 ),
-              ),
-            ],
-          ),
-          SliverAppBar(
-            automaticallyImplyLeading: false,
-            elevation: 0.0,
-            pinned: true,
-            expandedHeight: MediaQuery.of(context).size.height * 0.45,
-            flexibleSpace: DecoratedBox(
-              decoration: !isLoading && image != null && image != ''
-                  ? BoxDecoration(
-                      image: DecorationImage(
-                        image: FileImage(File(image)),
-                        fit: BoxFit.cover,
-                      ),
-                    )
-                  : BoxDecoration(color: Colors.grey[300]),
-              child: FlexibleSpaceBar(
-                collapseMode: CollapseMode.none,
-                background: Container(
-                  decoration: BoxDecoration(
-                    color: Palette.scaffold,
-                  ),
-                  child: !isLoading && image != null && image != ''
-                      ? Image.file(
-                          File(image),
-                          fit: BoxFit.cover,
-                          height: MediaQuery.of(context).size.height * 0.45,
-                          width: MediaQuery.of(context).size.width,
-                        )
-                      : const SizedBox(),
-                ),
-              ),
-            ),
-          ),
-          SliverGrid(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                var file = selectedFile.files[index];
-                return Container(
-                  color: Palette.scaffold,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 1,
-                        color: Palette.scaffold,
-                      ),
-                    ),
-                    child: GestureDetector(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            colorFilter: ColorFilter.mode(
-                              Colors.black.withOpacity(image == file ? 0.2 : 1),
-                              BlendMode.dstATop,
-                            ),
-                            image: FileImage(File(file)),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      onTap: () {
-                        setState(() {
-                          image = file;
-                        });
-                      },
-                    ),
-                  ),
-                );
-              },
-              childCount: !isLoading
-                  ? selectedFile.files.length >= 10
-                      ? 10
-                      : selectedFile.files.length
-                  : 0,
-            ),
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 120,
-            ),
-          ),
         ],
       ),
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: null,
+      ),
     );
-  }
-
-  List<DropdownMenuItem<FileModel>> getImages() {
-    return files
-        ?.map((e) => DropdownMenuItem(
-              child: Text(
-                e.folder,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-              ),
-              value: e,
-            ))
-        ?.toList();
   }
 }

@@ -5,7 +5,7 @@ final List<User> users = [
     id: 1,
     name: 'Matheus Henrique Conceição Bonore',
     image:
-        'https://scontent.fmii2-1.fna.fbcdn.net/v/t1.0-9/99055632_158647448972525_3629662387809812480_o.jpg?_nc_cat=111&ccb=2&_nc_sid=09cbfe&_nc_ohc=QKQ6P3FmUNsAX_zMT1S&_nc_ht=scontent.fmii2-1.fna&oh=81eacf7a3e3ce07e0c09c280cf007dc0&oe=5FEF8DAE',
+        'https://avatars1.githubusercontent.com/u/44881739?s=460&u=4ed6a4b3ebc8e47bcbe5ca0696d33381f6b26ba6&v=4',
     online: true,
   ),
 ];
