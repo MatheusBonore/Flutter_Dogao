@@ -1,5 +1,5 @@
 import 'dart:convert';
-// import 'dart:io';
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -45,7 +45,7 @@ class _ImageScreenState extends State<ImageScreen> {
 
     files = images?.map<FileModel>((e) => FileModel.fromJson(e))?.toList();
 
-    if (files != null && files.length > 0)
+    if (files.isNotEmpty)
       setState(() {
         image = files[0].files[0];
         isLoading = false;
@@ -166,10 +166,134 @@ class _ImageScreenState extends State<ImageScreen> {
                 ),
         ],
       ),
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: null,
-      ),
+      body: !isLoading
+          ? SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[350],
+                    ),
+                    height: MediaQuery.of(context).size.height * 0.45,
+                    width: MediaQuery.of(context).size.width,
+                    child: image.isNotEmpty
+                        ? Image.file(
+                            File(image),
+                            fit: BoxFit.cover,
+                          )
+                        : const SizedBox(),
+                  ),
+                  GridView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                    ),
+                    itemCount: !isLoading && selectedFile.files != null
+                        ? selectedFile.files.length >= 10
+                            ? 10
+                            : selectedFile.files.length
+                        : 0,
+                    itemBuilder: (BuildContext context, int index) {
+                      var file = selectedFile.files[index];
+                      return Container(
+                        color: Palette.scaffold,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 1,
+                              color: Palette.scaffold,
+                            ),
+                          ),
+                          child: GestureDetector(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  colorFilter: ColorFilter.mode(
+                                    Colors.black
+                                        .withOpacity(image == file ? 0.2 : 1),
+                                    BlendMode.dstATop,
+                                  ),
+                                  image: FileImage(File(file)),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            onTap: () {
+                              setState(() {
+                                image = file;
+                              });
+                            },
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ))
+          : Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 50.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.image,
+                    size: 120.0,
+                    color: Colors.grey[300],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Text(
+                      'Não há fotos neste dispositivo',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      'Use a câmera do Dogão para tirar uma foto.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 17.0,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: Center(
+                      child: FlatButton(
+                        color: Palette.dogaoRed,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CameraScreen(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'Abrir câmera',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
     );
   }
 }

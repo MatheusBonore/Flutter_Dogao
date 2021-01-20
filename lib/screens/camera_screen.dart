@@ -22,6 +22,7 @@ import 'package:path_provider/path_provider.dart';
 // import 'package:flutter_dogao/config/palette.dart';
 
 import 'package:flutter_dogao/screens/screens.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 // import 'package:flutter_dogao/widgtes/widgtes.dart';
 
@@ -65,14 +66,59 @@ class _CameraScreenState extends State<CameraScreen> {
     }
   }
 
-  Widget _cameraPreviewWidget() {
+  Widget _cameraPreviewWidget(context) {
     if (cameraController == null || !cameraController.value.isInitialized) {
-      return const Text(
-        'Carregando',
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 20.0,
-          fontWeight: FontWeight.w900,
+      return Container(
+        height: _getHeightCamera(context),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                child: Text(
+                  'Bem-vindo à câmera do Dogão!',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 16.0),
+              alignment: Alignment.center,
+              width: MediaQuery.of(context).size.width * 0.8,
+              child: Text(
+                'Compartilhe fotos e vídeos, e explore novas formas de se expressar.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white54,
+                ),
+              ),
+            ),
+            Center(
+              child: FlatButton(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+                onPressed: () async {
+                  Map<Permission, PermissionStatus> statuses = await [
+                    Permission.location,
+                    Permission.storage,
+                  ].request();
+                  print(statuses[Permission.location]);
+                },
+                child: Text(
+                  'Permitir acesso',
+                ),
+              ),
+            ),
+          ],
         ),
       );
     }
@@ -91,15 +137,25 @@ class _CameraScreenState extends State<CameraScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           mainAxisSize: MainAxisSize.max,
           children: [
-            FloatingActionButton(
-              child: Icon(
-                Icons.camera,
-                color: Colors.black,
+            SizedBox(
+              width: 70,
+              height: 70,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(40),
+                  border: Border.all(
+                    width: 8.0,
+                    color: Colors.grey.withOpacity(0.5),
+                  ),
+                ),
+                child: FloatingActionButton(
+                  splashColor: Colors.transparent,
+                  backgroundColor: Colors.white,
+                  onPressed: () {
+                    // _onCapturePressed(context);
+                  },
+                ),
               ),
-              backgroundColor: Colors.white,
-              onPressed: () {
-                _onCapturePressed(context);
-              },
             ),
           ],
         ),
@@ -117,19 +173,12 @@ class _CameraScreenState extends State<CameraScreen> {
 
     return Expanded(
       child: Align(
-        alignment: Alignment.centerLeft,
-        child: FlatButton.icon(
+        alignment: Alignment.center,
+        child: IconButton(
           icon: Icon(
             _getCameraLensIcon(lensDirection),
             color: Colors.white,
             size: 24.0,
-          ),
-          label: Text(
-            '${lensDirection.toString().substring(lensDirection.toString().indexOf('.') + 1).toUpperCase()}',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w500,
-            ),
           ),
           onPressed: _onSwitchCamera,
         ),
@@ -162,28 +211,38 @@ class _CameraScreenState extends State<CameraScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Container(
-        child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: Center(
+        child: Container(
+          height: _getHeightCamera(context),
+          child: Stack(
             children: [
-              Expanded(
-                flex: 1,
-                child: _cameraPreviewWidget(),
+              _cameraPreviewWidget(context),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 30.0,
+                  vertical: 40.0,
+                ),
+                child: IconButton(
+                  icon: Icon(
+                    Icons.close,
+                    color: Colors.white,
+                    size: 26,
+                  ),
+                  onPressed: () => Navigator.pop(context),
+                ),
               ),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
                   height: 120.0,
-                  width: double.infinity,
-                  padding: EdgeInsets.all(15.0),
-                  color: Colors.black,
+                  margin: const EdgeInsets.symmetric(vertical: 20),
+                  padding: const EdgeInsets.all(15.0),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      _cameraToggleRowWidget(),
-                      _cameraControlWidget(context),
                       Spacer(),
+                      _cameraControlWidget(context),
+                      _cameraToggleRowWidget(),
                     ],
                   ),
                 ),
@@ -200,6 +259,14 @@ class _CameraScreenState extends State<CameraScreen> {
     print(errorText);
   }
 
+  double _getHeightCamera(context) {
+    if (cameraController == null || !cameraController.value.isInitialized)
+      return MediaQuery.of(context).size.height;
+
+    return cameraController.value.previewSize.height;
+  }
+
+  // ignore: unused_element
   void _onCapturePressed(context) async {
     try {
       final String path =
@@ -239,11 +306,11 @@ class _CameraScreenState extends State<CameraScreen> {
   IconData _getCameraLensIcon(CameraLensDirection lensDirection) {
     switch (lensDirection) {
       case CameraLensDirection.back:
-        return CupertinoIcons.switch_camera;
+        return Icons.camera_front_outlined;
       case CameraLensDirection.front:
-        return CupertinoIcons.switch_camera_solid;
+        return Icons.camera_rear_outlined;
       case CameraLensDirection.external:
-        return CupertinoIcons.photo_camera;
+        return Icons.camera_alt_outlined;
       default:
         return Icons.device_unknown;
     }

@@ -27,7 +27,7 @@ class _NavScreenState extends State<NavScreen> {
     HomeScreen(),
     CategoryScreen(),
     Scaffold(),
-    Scaffold(),
+    PermissionScreen(),
   ];
 
   final List<IconData> _icons = const [

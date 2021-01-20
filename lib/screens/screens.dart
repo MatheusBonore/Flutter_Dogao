@@ -10,3 +10,4 @@ export 'image_screen.dart';
 export 'camera_screen.dart';
 export 'preview_screen.dart';
 export 'location_screen.dart';
+export 'permission_screen.dart';
