@@ -1,5 +1,9 @@
 import 'package:flutter_dogao/models/models.dart';
 
+final Config config = new Config(
+  introduction: false,
+);
+
 final List<User> users = [
   User(
     id: 1,

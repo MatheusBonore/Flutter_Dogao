@@ -108,6 +108,7 @@ class _PostContainerState extends State<PostContainer> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    // ignore: deprecated_member_use
                     FlatButton.icon(
                       onPressed: () => {
                         setState(() {
@@ -144,6 +145,7 @@ class _PostContainerState extends State<PostContainer> {
                       ),
                     ),
                     const SizedBox(width: 8.0),
+                    // ignore: deprecated_member_use
                     FlatButton.icon(
                       onPressed: () {
                         Navigator.push(

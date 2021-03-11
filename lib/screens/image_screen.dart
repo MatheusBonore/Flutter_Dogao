@@ -73,6 +73,7 @@ class _ImageScreenState extends State<ImageScreen> {
           icon: Icon(Icons.close),
           onPressed: () => Navigator.pop(context),
         ),
+        // ignore: deprecated_member_use
         title: FlatButton(
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
@@ -269,6 +270,7 @@ class _ImageScreenState extends State<ImageScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
                     child: Center(
+                      // ignore: deprecated_member_use
                       child: FlatButton(
                         color: Palette.dogaoRed,
                         shape: RoundedRectangleBorder(

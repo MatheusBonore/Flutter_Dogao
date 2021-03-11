@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_dogao/data/data.dart';
 
 import 'config/palette.dart';
 
@@ -40,7 +42,8 @@ class __IntroScreenState extends State<_IntroScreen> {
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => NavScreen(),
+          builder: (context) =>
+              config.introduction ? IntroductionScreen() : SignInScreen(),
         ),
       ),
     );
@@ -66,7 +69,7 @@ class __IntroScreenState extends State<_IntroScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                      'assets/images/logo.png',
+                      'assets/image/logo.png',
                       width: 90.0,
                     ),
                     Text(

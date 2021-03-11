@@ -75,6 +75,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
+                    // ignore: deprecated_member_use
                     FlatButton.icon(
                       onPressed: () {
                         Navigator.push(
@@ -105,6 +106,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                         borderRadius: BorderRadius.circular(30.0),
                       ),
                     ),
+                    // ignore: deprecated_member_use
                     FlatButton.icon(
                       onPressed: () => Navigator.push(
                         context,
@@ -154,6 +156,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
               ),
             ),
             actions: [
+              // ignore: deprecated_member_use
               FlatButton(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.zero,

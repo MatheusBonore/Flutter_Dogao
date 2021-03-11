@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 children: [
                   Image.asset(
-                    'assets/images/logo.png',
+                    'assets/image/logo.png',
                     width: 45.0,
                   ),
                   Text(
@@ -141,6 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  // ignore: deprecated_member_use
                   FlatButton.icon(
                     onPressed: () {
                       Navigator.push(
@@ -169,6 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                   ),
+                  // ignore: deprecated_member_use
                   FlatButton.icon(
                     onPressed: () => Navigator.push(
                       context,

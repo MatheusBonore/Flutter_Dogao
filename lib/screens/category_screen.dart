@@ -37,7 +37,7 @@ class CategoryScreen extends StatelessWidget {
     //           child: Row(
     //             children: [
     //               Image.asset(
-    //                 'assets/images/logo.png',
+    //                 'assets/image/logo.png',
     //                 width: 45.0,
     //               ),
     //               Text(

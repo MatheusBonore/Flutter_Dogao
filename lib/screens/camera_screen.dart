@@ -101,6 +101,7 @@ class _CameraScreenState extends State<CameraScreen> {
               ),
             ),
             Center(
+              // ignore: deprecated_member_use
               child: FlatButton(
                 color: Colors.white,
                 shape: RoundedRectangleBorder(
