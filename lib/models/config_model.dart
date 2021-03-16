@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'user_model.dart';
+
 class Config {
   bool introduction;
+  User currentUser;
 
   void setIntroduction(bool i) {
     this.introduction = i;
@@ -9,5 +12,6 @@ class Config {
 
   Config({
     @required this.introduction,
+    this.currentUser,
   });
 }

@@ -1,13 +1,4 @@
-// import 'dart:convert';
-// import 'dart:io';
-
 import 'package:flutter/material.dart';
-
-// import 'package:storage_path/storage_path.dart';
-
-// import 'package:cached_network_image/cached_network_image.dart';
-
-import 'package:flutter_dogao/data/data.dart';
 
 import 'package:flutter_dogao/models/models.dart';
 
@@ -18,6 +9,15 @@ import 'package:flutter_dogao/screens/screens.dart';
 import 'package:flutter_dogao/widgtes/widgtes.dart';
 
 class HomeScreen extends StatefulWidget {
+  final Config config;
+  final List<Post> posts;
+
+  const HomeScreen({
+    Key key,
+    @required this.config,
+    @required this.posts,
+  }) : super(key: key);
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -62,9 +62,11 @@ class _HomeScreenState extends State<HomeScreen> {
           SliverToBoxAdapter(
             child: buildCreatePostContainer(context),
           ),
-          posts.length != 0
+          widget.posts.length != 0
               ? SliverList(
-                  delegate: buildPostListSliverChildBuilderDelegate(),
+                  delegate: buildPostListSliverChildBuilderDelegate(
+                    posts: widget.posts,
+                  ),
                 )
               : SliverToBoxAdapter(
                   child: Container(
@@ -102,9 +104,11 @@ class _HomeScreenState extends State<HomeScreen> {
             context,
             MaterialPageRoute(
               builder: (context) => CreatePostScreen(
+                config: widget.config,
+                posts: widget.posts,
                 post: new Post(
-                  id: posts.length + 1,
-                  user: currentUser,
+                  id: widget.posts.length + 1,
+                  user: widget.config.currentUser,
                   caption: '',
                   image: '',
                   timeAgo: DateTime.now(),
@@ -115,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ).then((value) {
-            addPost(value);
+            addPost(posts: widget.posts, value: value);
           });
         },
         child: Container(
@@ -124,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Row(
                 children: [
-                  ProfileAvatar(imageUrl: currentUser.image),
+                  ProfileAvatar(imageUrl: widget.config.currentUser.image),
                   SizedBox(width: 8.0),
                   Expanded(
                     child: Text(
@@ -148,11 +152,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => ImageScreen(
+                            config: widget.config,
+                            posts: widget.posts,
                             previousScreen: false,
                           ),
                         ),
                       ).then((value) {
-                        addPost(value);
+                        addPost(posts: widget.posts, value: value);
                       });
                     },
                     icon: Icon(
@@ -202,7 +208,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void addPost(value) {
+  void addPost({List<Post> posts, value}) {
     if (value != null) {
       setState(() {
         posts.add(value);
@@ -211,7 +217,9 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  SliverChildBuilderDelegate buildPostListSliverChildBuilderDelegate() {
+  SliverChildBuilderDelegate buildPostListSliverChildBuilderDelegate({
+    List<Post> posts,
+  }) {
     return SliverChildBuilderDelegate(
       (context, index) {
         final Post post = posts[index];
@@ -222,6 +230,7 @@ class _HomeScreenState extends State<HomeScreen> {
             bottom: post == posts[posts.length - 1] ? 5.0 : 0.0,
           ),
           child: PostContainer(
+            config: widget.config,
             index: index,
             post: post,
           ),

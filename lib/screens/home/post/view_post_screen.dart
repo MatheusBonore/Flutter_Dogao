@@ -19,11 +19,13 @@ import 'package:flutter_dogao/config/palette.dart';
 import 'package:flutter_dogao/widgtes/widgtes.dart';
 
 class ViewPostScreen extends StatelessWidget {
+  final Config config;
   final User currentUser;
   final Post post;
 
   const ViewPostScreen({
     Key key,
+    @required this.config,
     @required this.currentUser,
     @required this.post,
   }) : super(key: key);
@@ -40,7 +42,11 @@ class ViewPostScreen extends StatelessWidget {
               padding: EdgeInsets.only(
                 top: MediaQuery.of(context).size.height * 0.035,
               ),
-              child: PostContainer(post: post, isViewPost: true),
+              child: PostContainer(
+                config: config,
+                post: post,
+                isViewPost: true,
+              ),
             ),
             Container(
               margin: const EdgeInsets.only(top: 10.0),

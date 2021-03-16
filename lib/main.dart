@@ -42,8 +42,15 @@ class __IntroScreenState extends State<_IntroScreen> {
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) =>
-              config.introduction ? IntroductionScreen() : SignInScreen(),
+          builder: (context) => config.introduction
+              ? IntroductionScreen(
+                  config: config,
+                  users: users,
+                )
+              : SignInScreen(
+                  config: config,
+                  users: users,
+                ),
         ),
       ),
     );

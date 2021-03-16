@@ -7,8 +7,6 @@ import 'package:flutter/material.dart';
 
 // import 'package:cached_network_image/cached_network_image.dart';
 
-import 'package:flutter_dogao/data/data.dart';
-
 import 'package:flutter_dogao/models/models.dart';
 
 import 'package:flutter_dogao/config/palette.dart';
@@ -18,12 +16,16 @@ import 'package:flutter_dogao/screens/screens.dart';
 import 'package:flutter_dogao/widgtes/widgtes.dart';
 
 class CreatePostScreen extends StatefulWidget {
+  final Config config;
+  final List<Post> posts;
   final Post post;
   final String image;
   final String location;
 
   CreatePostScreen({
     Key key,
+    @required this.config,
+    @required this.posts,
     @required this.post,
     this.image,
     this.location,
@@ -81,7 +83,10 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ImageScreen(),
+                            builder: (context) => ImageScreen(
+                              config: widget.config,
+                              posts: widget.posts,
+                            ),
                           ),
                         ).then((value) {
                           if (value != null && value != '') {
@@ -187,11 +192,11 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                         shape: BoxShape.circle,
                       ),
                       child: ProfileAvatar(
-                        imageUrl: currentUser.image,
+                        imageUrl: widget.config.currentUser.image,
                       ),
                     ),
                     title: Text(
-                      currentUser.name,
+                      widget.config.currentUser.name,
                       style: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w600,

@@ -2,7 +2,7 @@
 // import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_dogao/screens/sign_up_screen.dart';
+import 'package:flutter_dogao/screens/authentication/sign_up_screen.dart';
 
 // import 'package:storage_path/storage_path.dart';
 
@@ -12,7 +12,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 // import 'package:flutter_dogao/data/data.dart';
 
-// import 'package:flutter_dogao/models/models.dart';
+import 'package:flutter_dogao/models/models.dart';
 
 import 'package:flutter_dogao/config/palette.dart';
 
@@ -21,6 +21,15 @@ import 'package:flutter_dogao/config/palette.dart';
 import 'package:flutter_dogao/widgtes/widgtes.dart';
 
 class SignInScreen extends StatefulWidget {
+  final Config config;
+  final List<User> users;
+
+  const SignInScreen({
+    Key key,
+    @required this.config,
+    @required this.users,
+  }) : super(key: key);
+
   @override
   _SignInScreenState createState() => _SignInScreenState();
 }
@@ -181,7 +190,9 @@ class _SignInScreenState extends State<SignInScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => SignUpScreen(),
+                                builder: (context) => SignUpScreen(
+                                  users: widget.users,
+                                ),
                               ),
                             );
                           },

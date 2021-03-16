@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 
 // import 'package:flutter_dogao/data/data.dart';
 
-// import 'package:flutter_dogao/models/models.dart';
+import 'package:flutter_dogao/models/models.dart';
 
 import 'package:flutter_dogao/config/palette.dart';
 
@@ -20,6 +20,13 @@ import 'package:flutter_dogao/config/palette.dart';
 import 'package:flutter_dogao/widgtes/widgtes.dart';
 
 class SignUpScreen extends StatefulWidget {
+  final List<User> users;
+
+  const SignUpScreen({
+    Key key,
+    @required this.users,
+  }) : super(key: key);
+
   @override
   _SignUpScreenState createState() => _SignUpScreenState();
 }
@@ -214,14 +221,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               borderRadius: BorderRadius.circular(30),
                             ),
                             onPressed: () {
-                              var page =
-                                  _pageController.page + 1 == splashData.length
-                                      ? _pageController.page
-                                      : _pageController.page + 1;
-                              changePage(_pageController, page);
+                              if (_pageController.page.toInt() + 1 !=
+                                  splashData.length) {
+                                var page = _pageController.page + 1;
+                                changePage(_pageController, page);
+                              } else {
+                                widget.users.add(
+                                  new User(
+                                    id: widget.users.length + 1,
+                                    name: _controllerNome.text,
+                                    lastName: _controllerSobrenome.text,
+                                    login: new Login(
+                                      login: _controllerEmail.text,
+                                      senha: _controllerSenha.text,
+                                    ),
+                                  ),
+                                );
+                              }
                             },
                             child: Text(
-                              'Avançar',
+                              index + 1 == splashData.length
+                                  ? 'Concluir'
+                                  : 'Avançar',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 15,

@@ -7,23 +7,21 @@ import 'package:flutter_dogao/widgtes/widgtes.dart';
 
 import 'package:storage_path/storage_path.dart';
 
-// import 'package:cached_network_image/cached_network_image.dart';
-
-import 'package:flutter_dogao/data/data.dart';
-
 import 'package:flutter_dogao/models/models.dart';
 
 import 'package:flutter_dogao/config/palette.dart';
 
 import 'package:flutter_dogao/screens/screens.dart';
 
-// import 'package:flutter_dogao/widgtes/widgtes.dart';
-
 class ImageScreen extends StatefulWidget {
+  final Config config;
+  final List<Post> posts;
   final bool previousScreen;
 
   const ImageScreen({
     Key key,
+    @required this.config,
+    @required this.posts,
     this.previousScreen = true,
   }) : super(key: key);
 
@@ -132,9 +130,11 @@ class _ImageScreenState extends State<ImageScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => CreatePostScreen(
+                            config: widget.config,
+                            posts: widget.posts,
                             post: new Post(
-                              id: posts.length + 1,
-                              user: currentUser,
+                              id: widget.posts.length + 1,
+                              user: widget.config.currentUser,
                               caption: '',
                               image: '',
                               timeAgo: DateTime.now(),

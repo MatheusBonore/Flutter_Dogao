@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 
 // import 'package:flutter_dogao/data/data.dart';
 
-// import 'package:flutter_dogao/models/models.dart';
+import 'package:flutter_dogao/models/models.dart';
 
 import 'package:flutter_dogao/config/palette.dart';
 
@@ -18,17 +18,21 @@ import 'package:flutter_dogao/screens/screens.dart';
 // import 'package:flutter_dogao/widgtes/widgtes.dart';
 
 class NavScreen extends StatefulWidget {
+  final Config config;
+  final List<Post> posts;
+
+  const NavScreen({
+    Key key,
+    @required this.config,
+    @required this.posts,
+  }) : super(key: key);
+
   @override
   _NavScreenState createState() => _NavScreenState();
 }
 
 class _NavScreenState extends State<NavScreen> {
-  final List<Widget> _screens = [
-    HomeScreen(),
-    CategoryScreen(),
-    Scaffold(),
-    PermissionScreen(),
-  ];
+  List<Widget> _screens = [];
 
   final List<IconData> _icons = const [
     Icons.home,
@@ -38,6 +42,21 @@ class _NavScreenState extends State<NavScreen> {
   ];
 
   int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _screens = [
+      HomeScreen(
+        config: widget.config,
+        posts: widget.posts,
+      ),
+      CategoryScreen(),
+      Scaffold(),
+      Scaffold(),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {

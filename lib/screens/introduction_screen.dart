@@ -9,9 +9,9 @@ import 'package:flutter/material.dart';
 
 // import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:flutter_dogao/data/data.dart';
+// import 'package:flutter_dogao/data/data.dart';
 
-// import 'package:flutter_dogao/models/models.dart';
+import 'package:flutter_dogao/models/models.dart';
 
 import 'package:flutter_dogao/config/palette.dart';
 
@@ -20,6 +20,15 @@ import 'package:flutter_dogao/screens/screens.dart';
 // import 'package:flutter_dogao/widgtes/widgtes.dart';
 
 class IntroductionScreen extends StatefulWidget {
+  final Config config;
+  final List<User> users;
+
+  const IntroductionScreen({
+    Key key,
+    @required this.config,
+    @required this.users,
+  }) : super(key: key);
+
   @override
   _IntroductionScreenState createState() => _IntroductionScreenState();
 }
@@ -94,12 +103,15 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                             borderRadius: BorderRadius.circular(30),
                           ),
                           onPressed: () {
-                            config.setIntroduction(false);
+                            widget.config.setIntroduction(false);
 
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => SignInScreen(),
+                                builder: (context) => SignInScreen(
+                                  config: widget.config,
+                                  users: widget.users,
+                                ),
                               ),
                             );
                           },

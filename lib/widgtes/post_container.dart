@@ -8,8 +8,6 @@ import 'package:flutter/material.dart';
 
 // import 'package:cached_network_image/cached_network_image.dart';
 
-import 'package:flutter_dogao/data/data.dart';
-
 import 'package:flutter_dogao/models/models.dart';
 
 // import 'package:flutter_dogao/config/palette.dart';
@@ -19,12 +17,14 @@ import 'package:flutter_dogao/screens/screens.dart';
 import 'package:flutter_dogao/widgtes/widgtes.dart';
 
 class PostContainer extends StatefulWidget {
+  final Config config;
   final int index;
   final Post post;
   final bool isViewPost;
 
   const PostContainer({
     Key key,
+    @required this.config,
     this.index = 0,
     @required this.post,
     this.isViewPost = false,
@@ -91,10 +91,12 @@ class _PostContainerState extends State<PostContainer> {
                       if (!widget.isViewPost)
                         {
                           setState(() {
-                            if (widget.post.likes.contains(currentUser))
-                              widget.post.likes.remove(currentUser);
+                            if (widget.post.likes
+                                .contains(widget.config.currentUser))
+                              widget.post.likes
+                                  .remove(widget.config.currentUser);
                             else
-                              widget.post.likes.add(currentUser);
+                              widget.post.likes.add(widget.config.currentUser);
                           })
                         }
                     },
@@ -112,34 +114,37 @@ class _PostContainerState extends State<PostContainer> {
                     FlatButton.icon(
                       onPressed: () => {
                         setState(() {
-                          if (widget.post.likes.contains(currentUser))
-                            widget.post.likes.remove(currentUser);
+                          if (widget.post.likes
+                              .contains(widget.config.currentUser))
+                            widget.post.likes.remove(widget.config.currentUser);
                           else
-                            widget.post.likes.add(currentUser);
+                            widget.post.likes.add(widget.config.currentUser);
                         })
                       },
-                      icon: widget.post.likes.contains(currentUser)
-                          ? Icon(
-                              Icons.favorite,
-                              color: Colors.red,
-                            )
-                          : Icon(
-                              Icons.favorite_border,
-                              color: Colors.grey,
-                            ),
-                      label: widget.post.likes.contains(currentUser)
-                          ? Text(
-                              '${widget.post.likes.length}',
-                              style: TextStyle(
-                                color: Colors.red,
-                              ),
-                            )
-                          : Text(
-                              '${widget.post.likes.length}',
-                              style: TextStyle(
-                                color: Colors.grey,
-                              ),
-                            ),
+                      icon:
+                          widget.post.likes.contains(widget.config.currentUser)
+                              ? Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                )
+                              : Icon(
+                                  Icons.favorite_border,
+                                  color: Colors.grey,
+                                ),
+                      label:
+                          widget.post.likes.contains(widget.config.currentUser)
+                              ? Text(
+                                  '${widget.post.likes.length}',
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                  ),
+                                )
+                              : Text(
+                                  '${widget.post.likes.length}',
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                  ),
+                                ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0),
                       ),
@@ -152,7 +157,8 @@ class _PostContainerState extends State<PostContainer> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => ViewPostScreen(
-                              currentUser: currentUser,
+                              config: widget.config,
+                              currentUser: widget.config.currentUser,
                               post: widget.post,
                             ),
                           ),
@@ -190,7 +196,7 @@ class _PostContainerState extends State<PostContainer> {
         ),
         child: ProfileAvatar(
           imageUrl: widget.post.user.image,
-          isActive: widget.post.user.online,
+          isActive: widget.post.user.login.online,
         ),
       ),
       title: Text(
