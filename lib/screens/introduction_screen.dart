@@ -1,6 +1,23 @@
+// import 'dart:convert';
+// import 'dart:io';
+
 import 'package:flutter/material.dart';
+
+// import 'package:storage_path/storage_path.dart';
+
+// import 'package:cached_network_image/cached_network_image.dart';
+
+// import 'package:flutter_svg/flutter_svg.dart';
+
+import 'package:flutter_dogao/data/data.dart';
+
+// import 'package:flutter_dogao/models/models.dart';
+
 import 'package:flutter_dogao/config/palette.dart';
+
 import 'package:flutter_dogao/screens/screens.dart';
+
+// import 'package:flutter_dogao/widgtes/widgtes.dart';
 
 class IntroductionScreen extends StatefulWidget {
   @override
@@ -77,6 +94,8 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                             borderRadius: BorderRadius.circular(30),
                           ),
                           onPressed: () {
+                            config.setIntroduction(false);
+
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(

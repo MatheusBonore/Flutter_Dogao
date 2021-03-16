@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 
 class Config {
-  final bool introduction;
+  bool introduction;
 
-  const Config({
+  void setIntroduction(bool i) {
+    this.introduction = i;
+  }
+
+  Config({
     @required this.introduction,
   });
 }

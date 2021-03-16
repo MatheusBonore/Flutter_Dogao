@@ -1,6 +1,24 @@
+// import 'dart:convert';
+// import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_dogao/config/palette.dart';
+import 'package:flutter_dogao/screens/sign_up_screen.dart';
+
+// import 'package:storage_path/storage_path.dart';
+
+// import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:flutter_svg/flutter_svg.dart';
+
+// import 'package:flutter_dogao/data/data.dart';
+
+// import 'package:flutter_dogao/models/models.dart';
+
+import 'package:flutter_dogao/config/palette.dart';
+
+// import 'package:flutter_dogao/screens/screens.dart';
+
+import 'package:flutter_dogao/widgtes/widgtes.dart';
 
 class SignInScreen extends StatefulWidget {
   @override
@@ -8,6 +26,8 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  TextEditingController _controllerEmail = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,11 +35,10 @@ class _SignInScreenState extends State<SignInScreen> {
       body: SafeArea(
         child: SizedBox(
           width: double.infinity,
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 36.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(
+            children: [
+              Spacer(),
+              Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -39,87 +58,99 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                     ],
                   ),
-                  Text(
-                    'Entrar',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
-                  Text(
-                    'Use sua conta do Dogão. ' +
-                        'Você também fará parte' +
-                        ' de uma comunidade apaixonada' +
-                        ' por animais de estimação.',
-                    textAlign: TextAlign.center,
-                  ),
-                  Form(
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Column(
                       children: [
-                        SizedBox(
-                          height: 38,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              labelText: 'E-mail ou telefone',
-                              labelStyle: TextStyle(
-                                color: Colors.grey[400],
-                                fontSize: 15,
-                              ),
-                              contentPadding: EdgeInsets.symmetric(
-                                horizontal: 25,
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide(
-                                  color: Colors.grey[350],
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide(
-                                  color: Colors.grey[350],
-                                ),
-                              ),
-                            ),
+                        Text(
+                          'Entrar',
+                          style: TextStyle(
+                            fontSize: 20,
                           ),
                         ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: InkWell(
-                            splashColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () {},
-                            child: Text(
-                              'Esqueceu seu e-mail?',
-                              style: TextStyle(
-                                color: Colors.blue,
-                                fontSize: 15,
-                              ),
-                            ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16.0,
+                            vertical: 18.0,
                           ),
-                        ),
-                        SizedBox(
-                          width: double.infinity,
-                          // ignore: deprecated_member_use
-                          child: FlatButton(
-                            color: Palette.dogaoRed,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            onPressed: () {
-                              print('Flatbutton');
-                            },
-                            child: Text(
-                              'Continuar',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
-                              ),
-                            ),
+                          child: Text(
+                            'Use sua conta do Dogão. ' +
+                                'Você também fará parte' +
+                                ' de uma comunidade apaixonada' +
+                                ' por animais de estimação.',
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       ],
                     ),
                   ),
+                ],
+              ),
+              Spacer(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: Form(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 38,
+                        child: TextForm(
+                          controller: _controllerEmail,
+                          labelText: 'E-mail ou telefone',
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(
+                          top: 10.0,
+                          bottom: 20.0,
+                        ),
+                        alignment: Alignment.centerLeft,
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () {},
+                          child: Text(
+                            'Esqueceu seu e-mail?',
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        // ignore: deprecated_member_use
+                        child: FlatButton(
+                          color: Palette.dogaoRed,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          onPressed: () {
+                            // print(_controllerEmail.text);
+
+                            // print(logins.where((element) =>
+                            //     element.login == _controllerEmail.text));
+
+                            // print(logins
+                            //     .map((e) => e.login == _controllerEmail.text));
+                          },
+                          child: Text(
+                            'Continuar',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Spacer(flex: 1),
+              Column(
+                children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -137,26 +168,37 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Não tem uma conta? '),
-                      InkWell(
-                        splashColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () {},
-                        child: Text(
-                          'Criar conta',
-                          style: TextStyle(
-                            color: Colors.blue,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Não tem uma conta? '),
+                        InkWell(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SignUpScreen(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            'Criar conta',
+                            style: TextStyle(
+                              color: Colors.blue,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),
-            ),
+              Spacer(),
+            ],
           ),
         ),
       ),
