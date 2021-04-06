@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Dogão UI',
+      title: 'Flutter ${Palette.name} UI',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.red,
@@ -80,7 +80,7 @@ class __IntroScreenState extends State<_IntroScreen> {
                       width: 90.0,
                     ),
                     Text(
-                      'Dogão',
+                      Palette.name,
                       style: const TextStyle(
                         color: Palette.dogaoDark,
                         fontSize: 28.0,

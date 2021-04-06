@@ -37,19 +37,19 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
   int currentPage = 0;
   List<Map<String, String>> splashData = [
     {
-      'text': 'Welcome to Dogão, Let\'s shop!',
+      'text': 'Welcome to ${Palette.name}, Let\'s shop!',
       'image': 'assets/image/splash_1.png',
     },
     {
-      'text': 'Welcome to Dogão, Let\'s shop!',
+      'text': 'Welcome to ${Palette.name}, Let\'s shop!',
       'image': 'assets/image/splash_1.png',
     },
     {
-      'text': 'Welcome to Dogão, Let\'s shop!',
+      'text': 'Welcome to ${Palette.name}, Let\'s shop!',
       'image': 'assets/image/splash_1.png',
     },
     {
-      'text': 'Welcome to Dogão, Let\'s shop!',
+      'text': 'Welcome to ${Palette.name}, Let\'s shop!',
       'image': 'assets/image/splash_1.png',
     },
   ];
@@ -148,7 +148,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
               width: 45.0,
             ),
             Text(
-              'Dogão',
+              Palette.name,
               style: const TextStyle(
                 color: Palette.dogaoDark,
                 fontSize: 28.0,

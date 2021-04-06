@@ -260,7 +260,7 @@ class _ImageScreenState extends State<ImageScreen> {
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: Text(
-                      'Use a câmera do Dogão para tirar uma foto.',
+                      'Use a câmera do ${Palette.name} para tirar uma foto.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 17.0,

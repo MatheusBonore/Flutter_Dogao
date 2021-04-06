@@ -19,7 +19,7 @@ import 'package:path_provider/path_provider.dart';
 
 // import 'package:flutter_dogao/models/models.dart';
 
-// import 'package:flutter_dogao/config/palette.dart';
+import 'package:flutter_dogao/config/palette.dart';
 
 import 'package:flutter_dogao/screens/screens.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -78,7 +78,7 @@ class _CameraScreenState extends State<CameraScreen> {
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 50.0),
                 child: Text(
-                  'Bem-vindo à câmera do Dogão!',
+                  'Bem-vindo à câmera do ${Palette.name}!',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,

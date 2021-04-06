@@ -57,7 +57,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         width: 45.0,
                       ),
                       Text(
-                        'Dogão',
+                        Palette.name,
                         style: TextStyle(
                           color: Palette.dogaoDark,
                           fontSize: 28.0,
@@ -83,7 +83,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             vertical: 18.0,
                           ),
                           child: Text(
-                            'Use sua conta do Dogão. ' +
+                            'Use sua conta do ${Palette.name}. ' +
                                 'Você também fará parte' +
                                 ' de uma comunidade apaixonada' +
                                 ' por animais de estimação.',
@@ -102,9 +102,12 @@ class _SignInScreenState extends State<SignInScreen> {
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 38,
+                        height: 40.0,
                         child: TextForm(
                           controller: _controllerEmail,
+                          autofillHints: [AutofillHints.email],
+                          keyboardType: TextInputType.emailAddress,
+                          maxLength: 20,
                           labelText: 'E-mail ou telefone',
                         ),
                       ),
@@ -131,6 +134,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         width: double.infinity,
                         // ignore: deprecated_member_use
                         child: FlatButton(
+                          height: 40.0,
                           color: Palette.dogaoRed,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),

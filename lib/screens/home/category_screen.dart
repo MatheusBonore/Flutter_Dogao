@@ -41,7 +41,7 @@ class CategoryScreen extends StatelessWidget {
     //                 width: 45.0,
     //               ),
     //               Text(
-    //                 'Dogão',
+    //                 Palette.name,
     //                 style: const TextStyle(
     //                   color: Palette.dogaoDark,
     //                   fontSize: 28.0,
