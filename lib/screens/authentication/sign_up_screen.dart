@@ -1,30 +1,27 @@
-// import 'dart:convert';
-// import 'dart:io';
+// ignore: unused_import
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-// import 'package:storage_path/storage_path.dart';
-
-// import 'package:cached_network_image/cached_network_image.dart';
-
-// import 'package:flutter_svg/flutter_svg.dart';
-
-// import 'package:flutter_dogao/data/data.dart';
-
-import 'package:flutter_dogao/models/models.dart';
-
+import 'package:flutter_dogao/screens/screens.dart';
+// ignore: unused_import
 import 'package:flutter_dogao/config/palette.dart';
-
-// import 'package:flutter_dogao/screens/screens.dart';
-
+// ignore: unused_import
+import 'package:flutter_dogao/data/data.dart';
+// ignore: unused_import
+import 'package:flutter_dogao/models/models.dart';
+// ignore: unused_import
 import 'package:flutter_dogao/widgtes/widgtes.dart';
 
+// ignore: unused_import
+import 'package:flutter_svg/svg.dart';
+
 class SignUpScreen extends StatefulWidget {
-  final List<User> users;
+  final Data data;
 
   const SignUpScreen({
     Key key,
-    @required this.users,
+    @required this.data,
   }) : super(key: key);
 
   @override
@@ -356,10 +353,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                                 if (_messageErrorSenha == null ||
                                     _messageErrorSenha.isEmpty) {
-                                  // changePage(
-                                  //   pageController: _pageController,
-                                  //   page: 2,
-                                  // );
+                                  int id = widget.data.users.length + 1;
+                                  widget.data.users.add(new User(
+                                    id: id,
+                                    name: _controllerNome.text,
+                                    lastName: _controllerSobrenome.text,
+                                    login: new Login(
+                                      login: _controllerEmail.text,
+                                      senha: _controllerSenha.text,
+                                    ),
+                                  ));
+
+                                  widget.data.config.setCurrentUser(
+                                      widget.data.users.firstWhere(
+                                          (element) => element.id == id));
+
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => NavScreen(
+                                        data: widget.data,
+                                      ),
+                                    ),
+                                  );
                                 }
                               },
                               child: Text(
@@ -455,6 +471,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
             r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
         .hasMatch(email.text)) {
       return 'E-mail informado é invalido.';
+    } else if (widget.data.users
+            .indexWhere((element) => element.login.login == email.text) ==
+        0) {
+      return 'E-mail informado em uso.';
     }
     return null;
   }

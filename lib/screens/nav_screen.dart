@@ -1,30 +1,27 @@
-// import 'dart:convert';
-// import 'dart:io';
+// ignore: unused_import
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-// import 'package:storage_path/storage_path.dart';
-
-// import 'package:cached_network_image/cached_network_image.dart';
-
-// import 'package:flutter_dogao/data/data.dart';
-
-import 'package:flutter_dogao/models/models.dart';
-
-import 'package:flutter_dogao/config/palette.dart';
-
 import 'package:flutter_dogao/screens/screens.dart';
+// ignore: unused_import
+import 'package:flutter_dogao/config/palette.dart';
+// ignore: unused_import
+import 'package:flutter_dogao/data/data.dart';
+// ignore: unused_import
+import 'package:flutter_dogao/models/models.dart';
+// ignore: unused_import
+import 'package:flutter_dogao/widgtes/widgtes.dart';
 
-// import 'package:flutter_dogao/widgtes/widgtes.dart';
+// ignore: unused_import
+import 'package:flutter_svg/svg.dart';
 
 class NavScreen extends StatefulWidget {
-  final Config config;
-  final List<Post> posts;
+  final Data data;
 
   const NavScreen({
     Key key,
-    @required this.config,
-    @required this.posts,
+    @required this.data,
   }) : super(key: key);
 
   @override
@@ -49,8 +46,7 @@ class _NavScreenState extends State<NavScreen> {
 
     _screens = [
       HomeScreen(
-        config: widget.config,
-        posts: widget.posts,
+        data: widget.data,
       ),
       CategoryScreen(),
       Scaffold(),

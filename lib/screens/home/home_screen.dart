@@ -1,21 +1,27 @@
+// ignore: unused_import
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
-import 'package:flutter_dogao/models/models.dart';
-
-import 'package:flutter_dogao/config/palette.dart';
-
 import 'package:flutter_dogao/screens/screens.dart';
-
+// ignore: unused_import
+import 'package:flutter_dogao/config/palette.dart';
+// ignore: unused_import
+import 'package:flutter_dogao/data/data.dart';
+// ignore: unused_import
+import 'package:flutter_dogao/models/models.dart';
+// ignore: unused_import
 import 'package:flutter_dogao/widgtes/widgtes.dart';
 
+// ignore: unused_import
+import 'package:flutter_svg/svg.dart';
+
 class HomeScreen extends StatefulWidget {
-  final Config config;
-  final List<Post> posts;
+  final Data data;
 
   const HomeScreen({
     Key key,
-    @required this.config,
-    @required this.posts,
+    @required this.data,
   }) : super(key: key);
 
   @override
@@ -62,10 +68,10 @@ class _HomeScreenState extends State<HomeScreen> {
           SliverToBoxAdapter(
             child: buildCreatePostContainer(context),
           ),
-          widget.posts.length != 0
+          widget.data.posts.length != 0
               ? SliverList(
                   delegate: buildPostListSliverChildBuilderDelegate(
-                    posts: widget.posts,
+                    posts: widget.data.posts,
                   ),
                 )
               : SliverToBoxAdapter(
@@ -104,11 +110,11 @@ class _HomeScreenState extends State<HomeScreen> {
             context,
             MaterialPageRoute(
               builder: (context) => CreatePostScreen(
-                config: widget.config,
-                posts: widget.posts,
+                config: widget.data.config,
+                posts: widget.data.posts,
                 post: new Post(
-                  id: widget.posts.length + 1,
-                  user: widget.config.currentUser,
+                  id: widget.data.posts.length + 1,
+                  user: widget.data.config.currentUser,
                   caption: '',
                   image: '',
                   timeAgo: DateTime.now(),
@@ -119,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ).then((value) {
-            addPost(posts: widget.posts, value: value);
+            addPost(posts: widget.data.posts, value: value);
           });
         },
         child: Container(
@@ -128,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Row(
                 children: [
-                  ProfileAvatar(imageUrl: widget.config.currentUser.image),
+                  ProfileAvatar(imageUrl: widget.data.config.currentUser.image),
                   SizedBox(width: 8.0),
                   Expanded(
                     child: Text(
@@ -152,13 +158,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => ImageScreen(
-                            config: widget.config,
-                            posts: widget.posts,
+                            config: widget.data.config,
+                            posts: widget.data.posts,
                             previousScreen: false,
                           ),
                         ),
                       ).then((value) {
-                        addPost(posts: widget.posts, value: value);
+                        addPost(posts: widget.data.posts, value: value);
                       });
                     },
                     icon: Icon(
@@ -230,7 +236,7 @@ class _HomeScreenState extends State<HomeScreen> {
             bottom: post == posts[posts.length - 1] ? 5.0 : 0.0,
           ),
           child: PostContainer(
-            config: widget.config,
+            config: widget.data.config,
             index: index,
             post: post,
           ),

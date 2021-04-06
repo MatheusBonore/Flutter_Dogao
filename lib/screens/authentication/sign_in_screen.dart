@@ -1,33 +1,27 @@
-// import 'dart:convert';
-// import 'dart:io';
+// ignore: unused_import
+import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_dogao/screens/authentication/sign_up_screen.dart';
 
-// import 'package:storage_path/storage_path.dart';
-
-// import 'package:cached_network_image/cached_network_image.dart';
-
-import 'package:flutter_svg/flutter_svg.dart';
-
-// import 'package:flutter_dogao/data/data.dart';
-
-import 'package:flutter_dogao/models/models.dart';
-
+import 'package:flutter_dogao/screens/screens.dart';
+// ignore: unused_import
 import 'package:flutter_dogao/config/palette.dart';
-
-// import 'package:flutter_dogao/screens/screens.dart';
-
+// ignore: unused_import
+import 'package:flutter_dogao/data/data.dart';
+// ignore: unused_import
+import 'package:flutter_dogao/models/models.dart';
+// ignore: unused_import
 import 'package:flutter_dogao/widgtes/widgtes.dart';
 
+// ignore: unused_import
+import 'package:flutter_svg/svg.dart';
+
 class SignInScreen extends StatefulWidget {
-  final Config config;
-  final List<User> users;
+  final Data data;
 
   const SignInScreen({
     Key key,
-    @required this.config,
-    @required this.users,
+    @required this.data,
   }) : super(key: key);
 
   @override
@@ -195,7 +189,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => SignUpScreen(
-                                  users: widget.users,
+                                  data: widget.data,
                                 ),
                               ),
                             );

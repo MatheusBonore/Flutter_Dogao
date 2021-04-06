@@ -10,6 +10,10 @@ class Config {
     this.introduction = i;
   }
 
+  void setCurrentUser(User user) async {
+    this.currentUser = user;
+  }
+
   Config({
     @required this.introduction,
     this.currentUser,

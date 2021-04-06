@@ -1,17 +1,28 @@
+// ignore: unused_import
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+
+import 'package:flutter_dogao/screens/screens.dart';
+// ignore: unused_import
+import 'package:flutter_dogao/config/palette.dart';
+// ignore: unused_import
 import 'package:flutter_dogao/data/data.dart';
+// ignore: unused_import
+import 'package:flutter_dogao/models/models.dart';
+// ignore: unused_import
+import 'package:flutter_dogao/widgtes/widgtes.dart';
 
-import 'config/palette.dart';
-
-import 'screens/screens.dart';
+// ignore: unused_import
+import 'package:flutter_svg/svg.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  final Data data = new Data();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,12 +34,21 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         scaffoldBackgroundColor: Palette.scaffold,
       ),
-      home: _IntroScreen(),
+      home: _IntroScreen(
+        data: data,
+      ),
     );
   }
 }
 
 class _IntroScreen extends StatefulWidget {
+  final Data data;
+
+  const _IntroScreen({
+    Key key,
+    @required this.data,
+  }) : super(key: key);
+
   @override
   __IntroScreenState createState() => __IntroScreenState();
 }
@@ -42,14 +62,12 @@ class __IntroScreenState extends State<_IntroScreen> {
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => config.introduction
+          builder: (context) => widget.data.config.introduction
               ? IntroductionScreen(
-                  config: config,
-                  users: users,
+                  data: widget.data,
                 )
               : SignInScreen(
-                  config: config,
-                  users: users,
+                  data: widget.data,
                 ),
         ),
       ),
