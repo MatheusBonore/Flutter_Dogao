@@ -192,6 +192,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                         shape: BoxShape.circle,
                       ),
                       child: ProfileAvatar(
+                        name: widget.config.currentUser.name,
                         imageUrl: widget.config.currentUser.image,
                       ),
                     ),

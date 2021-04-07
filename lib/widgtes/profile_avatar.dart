@@ -1,50 +1,64 @@
-// import 'dart:convert';
-// import 'dart:io';
+// ignore: unused_import
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-// import 'package:storage_path/storage_path.dart';
-
-import 'package:cached_network_image/cached_network_image.dart';
-
-// import 'package:flutter_dogao/data/data.dart';
-
-// import 'package:flutter_dogao/models/models.dart';
-
-import 'package:flutter_dogao/config/palette.dart';
-
 import 'package:flutter_dogao/screens/screens.dart';
+// ignore: unused_import
+import 'package:flutter_dogao/config/palette.dart';
+// ignore: unused_import
+import 'package:flutter_dogao/data/data.dart';
+// ignore: unused_import
+import 'package:flutter_dogao/models/models.dart';
+// ignore: unused_import
+import 'package:flutter_dogao/widgtes/widgtes.dart';
 
-// import 'package:flutter_dogao/widgtes/widgtes.dart';
+// ignore: unused_import
+import 'package:flutter_svg/svg.dart';
 
 class ProfileAvatar extends StatelessWidget {
+  final String name;
   final String imageUrl;
   final bool isActive;
+  final double radius;
+  final bool viewProfile;
 
   const ProfileAvatar({
     Key key,
+    @required this.name,
     @required this.imageUrl,
     this.isActive = false,
+    this.radius = 20.0,
+    this.viewProfile = true,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(100),
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ProfileScreen(),
-          ),
-        );
+        if (viewProfile) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProfileScreen(),
+            ),
+          );
+        }
       },
       child: Stack(
         children: [
           CircleAvatar(
-            radius: 20.0,
+            radius: radius,
             backgroundColor: Colors.grey[200],
-            backgroundImage: CachedNetworkImageProvider(imageUrl),
+            // backgroundImage: CachedNetworkImageProvider(imageUrl),
+            child: Text(
+              name.substring(0, 1),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0 * (radius * 0.04),
+              ),
+            ),
           ),
           isActive
               ? Positioned(

@@ -93,6 +93,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                         width: double.infinity,
                         // ignore: deprecated_member_use
                         child: FlatButton(
+                          height: 40.0,
                           color: Palette.dogaoRed,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),

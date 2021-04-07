@@ -368,13 +368,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       widget.data.users.firstWhere(
                                           (element) => element.id == id));
 
-                                  Navigator.pushReplacement(
-                                    context,
+                                  Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(
                                       builder: (context) => NavScreen(
                                         data: widget.data,
                                       ),
                                     ),
+                                    (Route<dynamic> route) => false,
                                   );
                                 }
                               },
@@ -471,8 +471,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
             r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
         .hasMatch(email.text)) {
       return 'E-mail informado é invalido.';
-    } else if (widget.data.users
-            .indexWhere((element) => element.login.login == email.text) ==
+    } else if (widget.data.users.indexWhere(
+          (element) => element.login.login == email.text,
+        ) ==
         0) {
       return 'E-mail informado em uso.';
     }

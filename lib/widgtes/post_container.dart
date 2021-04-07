@@ -195,6 +195,7 @@ class _PostContainerState extends State<PostContainer> {
           shape: BoxShape.circle,
         ),
         child: ProfileAvatar(
+          name: widget.post.user.name,
           imageUrl: widget.post.user.image,
           isActive: widget.post.user.login.online,
         ),

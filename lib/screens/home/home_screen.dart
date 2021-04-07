@@ -134,7 +134,10 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Row(
                 children: [
-                  ProfileAvatar(imageUrl: widget.data.config.currentUser.image),
+                  ProfileAvatar(
+                    name: widget.data.config.currentUser.name,
+                    imageUrl: widget.data.config.currentUser.image,
+                  ),
                   SizedBox(width: 8.0),
                   Expanded(
                     child: Text(
