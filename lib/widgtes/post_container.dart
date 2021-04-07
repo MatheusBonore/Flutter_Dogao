@@ -1,30 +1,37 @@
-// import 'dart:convert';
+// ignore: unused_import
+import 'dart:async';
+// ignore: unused_import
+import 'dart:convert';
+// ignore: unused_import
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-// import 'package:storage_path/storage_path.dart';
-
-// import 'package:cached_network_image/cached_network_image.dart';
-
-import 'package:flutter_dogao/models/models.dart';
-
-// import 'package:flutter_dogao/config/palette.dart';
-
+// ignore: unused_import
 import 'package:flutter_dogao/screens/screens.dart';
-
+// ignore: unused_import
+import 'package:flutter_dogao/config/palette.dart';
+// ignore: unused_import
+import 'package:flutter_dogao/data/data.dart';
+// ignore: unused_import
+import 'package:flutter_dogao/models/models.dart';
+// ignore: unused_import
 import 'package:flutter_dogao/widgtes/widgtes.dart';
 
+// ignore: unused_import
+import 'package:flutter_svg/svg.dart';
+// ignore: unused_import
+import 'package:storage_path/storage_path.dart';
+
 class PostContainer extends StatefulWidget {
-  final Config config;
+  final Data data;
   final int index;
   final Post post;
   final bool isViewPost;
 
   const PostContainer({
     Key key,
-    @required this.config,
+    @required this.data,
     this.index = 0,
     @required this.post,
     this.isViewPost = false,
@@ -92,11 +99,12 @@ class _PostContainerState extends State<PostContainer> {
                         {
                           setState(() {
                             if (widget.post.likes
-                                .contains(widget.config.currentUser))
+                                .contains(widget.data.config.currentUser))
                               widget.post.likes
-                                  .remove(widget.config.currentUser);
+                                  .remove(widget.data.config.currentUser);
                             else
-                              widget.post.likes.add(widget.config.currentUser);
+                              widget.post.likes
+                                  .add(widget.data.config.currentUser);
                           })
                         }
                     },
@@ -115,36 +123,38 @@ class _PostContainerState extends State<PostContainer> {
                       onPressed: () => {
                         setState(() {
                           if (widget.post.likes
-                              .contains(widget.config.currentUser))
-                            widget.post.likes.remove(widget.config.currentUser);
+                              .contains(widget.data.config.currentUser))
+                            widget.post.likes
+                                .remove(widget.data.config.currentUser);
                           else
-                            widget.post.likes.add(widget.config.currentUser);
+                            widget.post.likes
+                                .add(widget.data.config.currentUser);
                         })
                       },
-                      icon:
-                          widget.post.likes.contains(widget.config.currentUser)
-                              ? Icon(
-                                  Icons.favorite,
-                                  color: Colors.red,
-                                )
-                              : Icon(
-                                  Icons.favorite_border,
-                                  color: Colors.grey,
-                                ),
-                      label:
-                          widget.post.likes.contains(widget.config.currentUser)
-                              ? Text(
-                                  '${widget.post.likes.length}',
-                                  style: TextStyle(
-                                    color: Colors.red,
-                                  ),
-                                )
-                              : Text(
-                                  '${widget.post.likes.length}',
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                  ),
-                                ),
+                      icon: widget.post.likes
+                              .contains(widget.data.config.currentUser)
+                          ? Icon(
+                              Icons.favorite,
+                              color: Colors.red,
+                            )
+                          : Icon(
+                              Icons.favorite_border,
+                              color: Colors.grey,
+                            ),
+                      label: widget.post.likes
+                              .contains(widget.data.config.currentUser)
+                          ? Text(
+                              '${widget.post.likes.length}',
+                              style: TextStyle(
+                                color: Colors.red,
+                              ),
+                            )
+                          : Text(
+                              '${widget.post.likes.length}',
+                              style: TextStyle(
+                                color: Colors.grey,
+                              ),
+                            ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0),
                       ),
@@ -157,8 +167,7 @@ class _PostContainerState extends State<PostContainer> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => ViewPostScreen(
-                              config: widget.config,
-                              currentUser: widget.config.currentUser,
+                              data: widget.data,
                               post: widget.post,
                             ),
                           ),

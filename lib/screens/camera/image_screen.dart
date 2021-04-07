@@ -1,27 +1,35 @@
+// ignore: unused_import
+import 'dart:async';
+// ignore: unused_import
 import 'dart:convert';
+// ignore: unused_import
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
+
+// ignore: unused_import
+import 'package:flutter_dogao/screens/screens.dart';
+// ignore: unused_import
+import 'package:flutter_dogao/config/palette.dart';
+// ignore: unused_import
+import 'package:flutter_dogao/data/data.dart';
+// ignore: unused_import
+import 'package:flutter_dogao/models/models.dart';
+// ignore: unused_import
 import 'package:flutter_dogao/widgtes/widgtes.dart';
 
+// ignore: unused_import
+import 'package:flutter_svg/svg.dart';
+// ignore: unused_import
 import 'package:storage_path/storage_path.dart';
 
-import 'package:flutter_dogao/models/models.dart';
-
-import 'package:flutter_dogao/config/palette.dart';
-
-import 'package:flutter_dogao/screens/screens.dart';
-
 class ImageScreen extends StatefulWidget {
-  final Config config;
-  final List<Post> posts;
+  final Data data;
   final bool previousScreen;
 
   const ImageScreen({
     Key key,
-    @required this.config,
-    @required this.posts,
+    @required this.data,
     this.previousScreen = true,
   }) : super(key: key);
 
@@ -130,11 +138,10 @@ class _ImageScreenState extends State<ImageScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => CreatePostScreen(
-                            config: widget.config,
-                            posts: widget.posts,
+                            data: widget.data,
                             post: new Post(
-                              id: widget.posts.length + 1,
-                              user: widget.config.currentUser,
+                              id: widget.data.posts.length + 1,
+                              user: widget.data.config.currentUser,
                               caption: '',
                               image: '',
                               timeAgo: DateTime.now(),

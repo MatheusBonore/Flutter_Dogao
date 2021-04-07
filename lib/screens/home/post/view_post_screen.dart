@@ -1,32 +1,36 @@
-// import 'dart:convert';
-// import 'dart:io';
-// import 'dart:ui';
+// ignore: unused_import
+import 'dart:async';
+// ignore: unused_import
+import 'dart:convert';
+// ignore: unused_import
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-// import 'package:storage_path/storage_path.dart';
-
-// import 'package:cached_network_image/cached_network_image.dart';
-
-// import 'package:flutter_dogao/data/data.dart';
-
-import 'package:flutter_dogao/models/models.dart';
-
+// ignore: unused_import
+import 'package:flutter_dogao/screens/screens.dart';
+// ignore: unused_import
 import 'package:flutter_dogao/config/palette.dart';
-
-// import 'package:flutter_dogao/screens/screens.dart';
-
+// ignore: unused_import
+import 'package:flutter_dogao/data/data.dart';
+// ignore: unused_import
+import 'package:flutter_dogao/models/models.dart';
+// ignore: unused_import
 import 'package:flutter_dogao/widgtes/widgtes.dart';
 
+// ignore: unused_import
+import 'package:flutter_svg/svg.dart';
+// ignore: unused_import
+import 'package:storage_path/storage_path.dart';
+
 class ViewPostScreen extends StatelessWidget {
-  final Config config;
-  final User currentUser;
+  final Data data;
+
   final Post post;
 
   const ViewPostScreen({
     Key key,
-    @required this.config,
-    @required this.currentUser,
+    @required this.data,
     @required this.post,
   }) : super(key: key);
 
@@ -43,7 +47,7 @@ class ViewPostScreen extends StatelessWidget {
                 top: MediaQuery.of(context).size.height * 0.035,
               ),
               child: PostContainer(
-                config: config,
+                data: data,
                 post: post,
                 isViewPost: true,
               ),

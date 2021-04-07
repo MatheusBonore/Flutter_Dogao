@@ -1,31 +1,37 @@
-// import 'dart:convert';
+// ignore: unused_import
+import 'dart:async';
+// ignore: unused_import
+import 'dart:convert';
+// ignore: unused_import
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-// import 'package:storage_path/storage_path.dart';
-
-// import 'package:cached_network_image/cached_network_image.dart';
-
-import 'package:flutter_dogao/models/models.dart';
-
-import 'package:flutter_dogao/config/palette.dart';
-
+// ignore: unused_import
 import 'package:flutter_dogao/screens/screens.dart';
-
+// ignore: unused_import
+import 'package:flutter_dogao/config/palette.dart';
+// ignore: unused_import
+import 'package:flutter_dogao/data/data.dart';
+// ignore: unused_import
+import 'package:flutter_dogao/models/models.dart';
+// ignore: unused_import
 import 'package:flutter_dogao/widgtes/widgtes.dart';
 
+// ignore: unused_import
+import 'package:flutter_svg/svg.dart';
+// ignore: unused_import
+import 'package:storage_path/storage_path.dart';
+
 class CreatePostScreen extends StatefulWidget {
-  final Config config;
-  final List<Post> posts;
+  final Data data;
   final Post post;
   final String image;
   final String location;
 
   CreatePostScreen({
     Key key,
-    @required this.config,
-    @required this.posts,
+    @required this.data,
     @required this.post,
     this.image,
     this.location,
@@ -84,8 +90,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => ImageScreen(
-                              config: widget.config,
-                              posts: widget.posts,
+                              data: widget.data,
                             ),
                           ),
                         ).then((value) {
@@ -192,12 +197,12 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                         shape: BoxShape.circle,
                       ),
                       child: ProfileAvatar(
-                        name: widget.config.currentUser.name,
-                        imageUrl: widget.config.currentUser.image,
+                        name: widget.data.config.currentUser.name,
+                        imageUrl: widget.data.config.currentUser.image,
                       ),
                     ),
                     title: Text(
-                      widget.config.currentUser.name,
+                      widget.data.config.currentUser.name,
                       style: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w600,

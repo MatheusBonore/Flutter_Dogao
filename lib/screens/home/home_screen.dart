@@ -1,8 +1,13 @@
 // ignore: unused_import
 import 'dart:async';
+// ignore: unused_import
+import 'dart:convert';
+// ignore: unused_import
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 
+// ignore: unused_import
 import 'package:flutter_dogao/screens/screens.dart';
 // ignore: unused_import
 import 'package:flutter_dogao/config/palette.dart';
@@ -15,6 +20,8 @@ import 'package:flutter_dogao/widgtes/widgtes.dart';
 
 // ignore: unused_import
 import 'package:flutter_svg/svg.dart';
+// ignore: unused_import
+import 'package:storage_path/storage_path.dart';
 
 class HomeScreen extends StatefulWidget {
   final Data data;
@@ -110,8 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
             context,
             MaterialPageRoute(
               builder: (context) => CreatePostScreen(
-                config: widget.data.config,
-                posts: widget.data.posts,
+                data: widget.data,
                 post: new Post(
                   id: widget.data.posts.length + 1,
                   user: widget.data.config.currentUser,
@@ -161,8 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => ImageScreen(
-                            config: widget.data.config,
-                            posts: widget.data.posts,
+                            data: widget.data,
                             previousScreen: false,
                           ),
                         ),
@@ -239,7 +244,7 @@ class _HomeScreenState extends State<HomeScreen> {
             bottom: post == posts[posts.length - 1] ? 5.0 : 0.0,
           ),
           child: PostContainer(
-            config: widget.data.config,
+            data: widget.data,
             index: index,
             post: post,
           ),
