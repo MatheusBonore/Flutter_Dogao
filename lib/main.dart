@@ -38,7 +38,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
         primaryColor: Colors.white,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
         scaffoldBackgroundColor: Palette.scaffold,
       ),
       home: _IntroScreen(
@@ -64,18 +63,24 @@ class __IntroScreenState extends State<_IntroScreen> {
   @override
   void initState() {
     super.initState();
+
+    widget.data.config.setCurrentUser(widget.data.users.first);
+
     Timer(
       Duration(seconds: 3),
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => widget.data.config.introduction
-              ? IntroductionScreen(
-                  data: widget.data,
-                )
-              : SignInScreen(
-                  data: widget.data,
-                ),
+          builder: (context) =>
+              !["", null, false, 0].contains(widget.data.config.currentUser)
+                  ? NavScreen(data: widget.data)
+                  : widget.data.config.introduction
+                      ? IntroductionScreen(
+                          data: widget.data,
+                        )
+                      : SignInScreen(
+                          data: widget.data,
+                        ),
         ),
       ),
     );

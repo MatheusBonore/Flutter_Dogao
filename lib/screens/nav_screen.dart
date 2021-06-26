@@ -55,9 +55,13 @@ class _NavScreenState extends State<NavScreen> {
       HomeScreen(
         data: widget.data,
       ),
-      CategoryScreen(),
+      CategoryScreen(
+        data: widget.data,
+      ),
       Scaffold(),
-      Scaffold(),
+      MenuScreen(
+        data: widget.data,
+      ),
     ];
   }
 

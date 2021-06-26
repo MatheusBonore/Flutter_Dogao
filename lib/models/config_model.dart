@@ -14,6 +14,11 @@ class Config {
     this.currentUser = user;
   }
 
+  Future<bool> getOutUser() async {
+    this.currentUser = null;
+    return true;
+  }
+
   Config({
     @required this.introduction,
     this.currentUser,

@@ -23,7 +23,19 @@ import 'package:flutter_svg/svg.dart';
 // ignore: unused_import
 import 'package:storage_path/storage_path.dart';
 
-class CategoryScreen extends StatelessWidget {
+class CategoryScreen extends StatefulWidget {
+  final Data data;
+
+  const CategoryScreen({
+    Key key,
+    @required this.data,
+  }) : super(key: key);
+
+  @override
+  _CategoryScreenState createState() => _CategoryScreenState();
+}
+
+class _CategoryScreenState extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold();

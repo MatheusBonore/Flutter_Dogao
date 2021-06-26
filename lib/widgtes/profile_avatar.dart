@@ -58,7 +58,6 @@ class ProfileAvatar extends StatelessWidget {
           CircleAvatar(
             radius: radius,
             backgroundColor: Colors.grey[200],
-            // backgroundImage: CachedNetworkImageProvider(imageUrl),
             child: Text(
               name.substring(0, 1),
               style: TextStyle(
@@ -67,7 +66,7 @@ class ProfileAvatar extends StatelessWidget {
               ),
             ),
           ),
-          isActive
+          isActive != null
               ? Positioned(
                   bottom: 0.0,
                   right: 0.0,

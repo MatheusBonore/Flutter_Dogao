@@ -8,10 +8,10 @@ class Data {
   List<User> users = [
     new User(
       id: 1,
-      name: 'Teste',
-      lastName: 'Teste',
+      name: 'Matheus Henrique',
+      lastName: 'Conceição Bonore',
       login: new Login(
-        login: 'teste@teste.com',
+        login: 'matheus.bonore@gmail.com',
         senha: 'senha',
       ),
     ),
