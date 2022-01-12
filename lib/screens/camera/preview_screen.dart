@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 
 // import 'package:flutter/cupertino.dart';
 
-import 'package:esys_flutter_share/esys_flutter_share.dart';
+// import 'package:esys_flutter_share/esys_flutter_share.dart';
 
 // import 'package:camera/camera.dart';
 
-import 'package:path/path.dart';
+// import 'package:path/path.dart';
 
 // import 'package:path_provider/path_provider.dart';
 
@@ -71,10 +71,10 @@ class _PreviewScreenState extends State<PreviewScreen> {
                       color: Colors.white,
                     ),
                     onPressed: () {
-                      getBytesFromFile().then((bytes) {
-                        Share.file('Share via', basename(widget.imgPath),
-                            bytes.buffer.asUint8List(), 'image/path');
-                      });
+                      // getBytesFromFile().then((bytes) {
+                      //   Share.file('Share via', basename(widget.imgPath),
+                      //       bytes.buffer.asUint8List(), 'image/path');
+                      // });
                     },
                   ),
                 ),

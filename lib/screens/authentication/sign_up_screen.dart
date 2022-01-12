@@ -50,22 +50,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            if (_pageController.page == 0)
-              Navigator.pop(context);
-            else {
-              int page = _pageController.page.toInt() > 0
-                  ? _pageController.page.toInt() - 1
-                  : 0;
-              changePage(
-                pageController: _pageController,
-                page: page,
-              );
-            }
-          },
-        ),
+        backgroundColor: Colors.white,
+        automaticallyImplyLeading: false,
+        // leading: IconButton(
+        //   icon: const Icon(Icons.arrow_back),
+        //   onPressed: () {
+        //     if (_pageController.page == 0)
+        //       Navigator.pop(context);
+        //     else {
+        //       int page = _pageController.page.toInt() > 0
+        //           ? _pageController.page.toInt() - 1
+        //           : 0;
+        //       changePage(
+        //         pageController: _pageController,
+        //         page: page,
+        //       );
+        //     }
+        //   },
+        // ),
         elevation: 0.0,
       ),
       body: PageView(

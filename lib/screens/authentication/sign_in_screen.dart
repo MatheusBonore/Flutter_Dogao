@@ -45,6 +45,8 @@ class _SignInScreenState extends State<SignInScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: null,
         elevation: 0.0,
       ),
       body: PageView(

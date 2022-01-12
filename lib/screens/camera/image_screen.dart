@@ -21,7 +21,7 @@ import 'package:flutter_dogao/widgtes/widgtes.dart';
 // ignore: unused_import
 import 'package:flutter_svg/svg.dart';
 // ignore: unused_import
-import 'package:storage_path/storage_path.dart';
+// import 'package:storage_path/storage_path.dart';
 
 class ImageScreen extends StatefulWidget {
   final Data data;
@@ -46,10 +46,10 @@ class _ImageScreenState extends State<ImageScreen> {
   String image;
 
   Future<void> getImagesPath() async {
-    var imagePath = await StoragePath.imagesPath;
-    var images = await jsonDecode(imagePath) as List;
+    // var imagePath = await StoragePath.imagesPath;
+    // var images = await jsonDecode(imagePath) as List;
 
-    files = images?.map<FileModel>((e) => FileModel.fromJson(e))?.toList();
+    // files = images?.map<FileModel>((e) => FileModel.fromJson(e))?.toList();
 
     if (files.isNotEmpty)
       setState(() {
@@ -164,12 +164,12 @@ class _ImageScreenState extends State<ImageScreen> {
                     color: Palette.dogaoRed,
                   ),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CameraScreen(),
-                      ),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => CameraScreen(),
+                    //   ),
+                    // );
                   },
                 ),
         ],
@@ -284,12 +284,12 @@ class _ImageScreenState extends State<ImageScreen> {
                           borderRadius: BorderRadius.circular(30.0),
                         ),
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => CameraScreen(),
-                            ),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => CameraScreen(),
+                          //   ),
+                          // );
                         },
                         child: Text(
                           'Abrir câmera',

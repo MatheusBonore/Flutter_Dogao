@@ -7,9 +7,9 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:camera/camera.dart';
 
-import 'package:path/path.dart';
+// import 'package:path/path.dart';
 
-import 'package:path_provider/path_provider.dart';
+// import 'package:path_provider/path_provider.dart';
 
 // import 'package:storage_path/storage_path.dart';
 
@@ -21,7 +21,7 @@ import 'package:path_provider/path_provider.dart';
 
 import 'package:flutter_dogao/config/palette.dart';
 
-import 'package:flutter_dogao/screens/screens.dart';
+// import 'package:flutter_dogao/screens/screens.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 // import 'package:flutter_dogao/widgtes/widgtes.dart';
@@ -270,27 +270,27 @@ class _CameraScreenState extends State<CameraScreen> {
   // ignore: unused_element
   void _onCapturePressed(context) async {
     try {
-      final String path =
-          join((await getTemporaryDirectory()).path, '${DateTime.now()}.png');
+      // final String path =
+      //     join((await getTemporaryDirectory()).path, '${DateTime.now()}.png');
 
       await cameraController.takePicture().then((XFile file) {
         if (mounted) {
           setState(() {
-            file = path as XFile;
+            // file = path as XFile;
             cameraController?.dispose();
             cameraController = null;
           });
         }
       });
 
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => PreviewScreen(
-            imgPath: path,
-          ),
-        ),
-      );
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => PreviewScreen(
+      //       imgPath: path,
+      //     ),
+      //   ),
+      // );
     } catch (ex) {
       _showCameraException(ex);
     }
